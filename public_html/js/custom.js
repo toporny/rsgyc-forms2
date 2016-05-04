@@ -3,15 +3,20 @@ var demoApp = angular.module('demoApp', ['valdr', 'pascalprecht.translate']);
     valdrProvider.addConstraints({
       'Person': {
         'lastName': {
-
           'size': {
             'max': 4,
             'message': 'Last name max is 4 characters.'
+          }
+        },
+        'age': {
+          'required': {
+            'message': 'age is required.'
           }
         }
       }
     });
   });
+
   demoApp.config(function (valdrMessageProvider, $translateProvider) {
     $translateProvider.preferredLanguage('en');
     $translateProvider.translations('en', {
@@ -27,9 +32,11 @@ var demoApp = angular.module('demoApp', ['valdr', 'pascalprecht.translate']);
       'Person.lastName.minlength': 'lastname.specific'
     });
   });
+
   demoApp.run(function (valdrMessage) {
     valdrMessage.angularMessagesEnabled = true;
   });
+
   demoApp.controller('TestController', function ($scope, valdr) {
     $scope.person = {};
     $scope.genders = [

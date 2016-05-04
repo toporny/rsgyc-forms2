@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Demo</title>
+ 	<title>Demo</title>
     <link href="css/bootstrap.css" media="all" rel="stylesheet" />
     <link href="css/css.css" media="all" rel="stylesheet" />
+	<script src="js/angular.js"></script>
+	<script src="js/angular-translate.js"></script>
+	<script src="js/valdr.js"></script>
+	<script src="js/valdr-message.js"></script>
+	<script src="js/custom.js"></script>
 </head>
 
 <body ng-app="demoApp">
+
 	<div class="container-fluid">
 		<div ng-controller="TestController" ng-class="{ 'form-submitted': formSubmitted }">
 
-		  <form name="demoForm" novalidate>
-		    <div valdr-type="Person">
-		      <h4>Person</h4>
-		      <div valdr-form-group>
-		        <label for="lastName">Last Name</label>
-		        <input type="text"
-		               id="lastName"
-		               name="lastName"
-		               required
-		               ng-minlength="2"
-		               ng-model="person.lastName">
-		      </div>
+			<form name="demoForm" novalidate>
+				<div valdr-type="Person">
+				<h4>Person</h4>
 
-		      <div valdr-form-group>
-		        <label for="age">Age</label>
-		        <input type="number"
-		               id="age"
-		               required
-		               name="age"
-		               ng-model="person.age">
-		      </div>
+				<div class="form-group" valdr-form-group>
+					<label for="lastName">Last Name</label>
+					<input type="text"
+						id="lastName"
+						class="form-control"
+						name="lastName"
+						ng-minlength="4"
+						ng-model="person.lastName">
+				</div>
+				
+				<div class="form-group" valdr-form-group>
+					<label for="age">Age</label>
+					<input type="number"
+						class="form-control"
+						id="age"
+						name="age"
+						ng-model="person.age">
+				</div>
 
-		    </div>
+			</form>
 
-		  </form>
-
-		  <pre>demoForm.$valid = {{demoForm.$valid}}</pre>
-
-
+			<pre>demoForm.$valid = {{demoForm.$valid}}</pre>
 
 		</div>
 	</div>
 
-<script src="js/angular.js"></script>
-<script src="js/angular-translate.js"></script>
-<script src="js/valdr.js"></script>
-<script src="js/valdr-message.js"></script>
-<script src="custom.js"></script>
 
 </body>
 </html>
