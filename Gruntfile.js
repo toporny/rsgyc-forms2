@@ -5,6 +5,10 @@ grunt.initConfig({
 	  main: {
 		files: [
 			// includes files within path
+			{expand: false, src: ['bower_components/angular-translate/angular-translate.js'], dest: 'public_html/js/angular-translate.js', filter: 'isFile'},
+			{expand: false, src: ['bower_components/valdr/valdr.js'], dest: 'public_html/js/valdr.js', filter: 'isFile'},
+			{expand: false, src: ['bower_components/valdr/valdr.js'], dest: 'public_html/js/valdr.js', filter: 'isFile'},
+			{expand: false, src: ['bower_components/valdr/valdr-message.js'], dest: 'public_html/js/valdr-message.js', filter: 'isFile'},
 			{expand: false, src: ['bower_components/bootstrap/dist/css/bootstrap.css'], dest: 'public_html/css/bootstrap.css', filter: 'isFile'},
 			{expand: false, src: ['bower_components/valdr/valdr.js'], dest: 'public_html/js/valdr.js', filter: 'isFile'},
 			{expand: false, src: ['bower_components/angular-translate/angular-translate.js'], dest: 'public_html/js/angular-translate.js', filter: 'isFile'},
