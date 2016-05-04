@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Demo</title>
+    <link href="bootstrap/dist/css/bootstrap.css" media="all" rel="stylesheet" />
+    <link href="css.css" media="all" rel="stylesheet" />
+</head>
+
+<body ng-app="demoApp">
+	<div class="container-fluid">
+		<div ng-controller="TestController" ng-class="{ 'form-submitted': formSubmitted }">
+
+		  <form name="demoForm" novalidate>
+		    <div valdr-type="Person">
+		      <h4>Person</h4>
+		      <div valdr-form-group>
+		        <label for="lastName">Last Name</label>
+		        <input type="text"
+		               id="lastName"
+		               name="lastName"
+		               required
+		               ng-minlength="2"
+		               ng-model="person.lastName">
+		      </div>
+
+		      <div valdr-form-group>
+		        <label for="age">Age</label>
+		        <input type="number"
+		               id="age"
+		               required
+		               name="age"
+		               ng-model="person.age">
+		      </div>
+
+		    </div>
+
+		  </form>
+
+		  <pre>demoForm.$valid = {{demoForm.$valid}}</pre>
+
+
+
+		</div>
+	</div>
+
+<script src="angular/angular.js"></script>
+<script src="angular-translate/angular-translate.js"></script>
+<script src="valdr/valdr.js"></script>
+<script src="valdr/valdr-message.js"></script>
+<script src="custom.js"></script>
+
+</body>
+</html>
