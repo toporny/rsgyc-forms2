@@ -18,34 +18,22 @@
 	<div class="panel-body">
 
 		<div ng-controller="TestController as testController" ng-class="{ 'form-submitted': formSubmitted }">
- 
+
 			<form name="demoForm" valdr-type="Person" novalidate>
 				
 				<h4>Junior Summer Sailing Course Application Form, Beginner, Improving and Advanced Sailors</h4>
-
 				<div class="form-group" valdr-form-group>
 					<label for="sailingModuleToComplete">Sailing Module to complete</label>
-					<select class="form-control" name="testController.sailingModuleToComplete" ng-model="testController.sailingModuleToComplete">
-						<option value="" selected>-- please select --</option>
-						<option value="Start Sailing">Start Sailing</option>
-						<option value="Basic Skills">Basic Skills</option>
-						<option value="Improving Skills">Improving Skills</option>
-						<option value="Advanced Boat Handling">Advanced Boat Handling</option>
-						<option value="Kites and Wires 1">Kites and Wires 1</option>
-						<option value="Kites and Wires 2">Kites and Wires 2</option>
-						<option value="Go Racing 1">Go Racing 1</option>
-						<option value="Go Racing 2">Go Racing 2</option>
-						<option value="Adventure 1 (Course C &amp; D only)">Adventure 1 (Course C &amp; D only)</option>
-						<option value="Adventure 2 (Course C &amp; D only)">Adventure 2 (Course C &amp; D only)</option>
+					<select class="form-control" name="sailingModuleToComplete" ng-model="testController.sailingModuleToComplete_index">
+						<option ng-repeat="option in testController.sailing_module" value="{{option.id}}">{{option.value}}</option>
 					</select>
-				</div>				
+				</div>
 
 				<div class="form-group" valdr-form-group>
 					<label for="age">Age</label>
-					<input type="text"
-						class="form-control"
-						name="age"
-						ng-model="person.age">
+					<select class="form-control" name="age" ng-model="testController.age_index">
+						<option ng-repeat="option in testController.possible_ages" value="{{option.id}}">{{option.value}}</option>
+					</select>
 				</div>
 
 				<hr>
