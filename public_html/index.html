@@ -1,50 +1,330 @@
 <!DOCTYPE html>
 <html>
 <head>
- 	<title>Demo</title>
-    <link href="css/bootstrap.css" media="all" rel="stylesheet" />
-    <link href="css/css.css" media="all" rel="stylesheet" />
-	<script src="js/angular.js"></script>
-	<script src="js/angular-translate.js"></script>
-	<script src="js/valdr.js"></script>
-	<script src="js/valdr-message.js"></script>
+	<title>Demo Form</title>
+	<meta charset="utf-8">
+	<link href="css/bootstrap.css" media="all" rel="stylesheet" />
+	<link href="css/css.css" media="all" rel="stylesheet" />
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-translate.min.js"></script>
+	<script src="js/valdr.min.js"></script>
+	<script src="js/valdr-message.min.js"></script>
 	<script src="js/custom.js"></script>
 </head>
 
 <body ng-app="demoApp">
 
-	<div class="container-fluid">
-		<div ng-controller="TestController" ng-class="{ 'form-submitted': formSubmitted }">
+<div class="col-sm-8 text-left"> 
+	<div class="panel-body">
 
-			<form name="demoForm" novalidate>
-				<div valdr-type="Person">
-				<h4>Person</h4>
+		<div ng-controller="TestController as testController" ng-class="{ 'form-submitted': formSubmitted }">
+ 
+			<form name="demoForm" valdr-type="Person" novalidate>
+				
+				<h4>Junior Summer Sailing Course Application Form, Beginner, Improving and Advanced Sailors</h4>
 
 				<div class="form-group" valdr-form-group>
-					<label for="lastName">Last Name</label>
-					<input type="text"
-						id="lastName"
-						class="form-control"
-						name="lastName"
-						ng-minlength="4"
-						ng-model="person.lastName">
-				</div>
-				
+					<label for="sailingModuleToComplete">Sailing Module to complete</label>
+					<select class="form-control" name="testController.sailingModuleToComplete" ng-model="testController.sailingModuleToComplete">
+						<option value="" selected>-- please select --</option>
+						<option value="Start Sailing">Start Sailing</option>
+						<option value="Basic Skills">Basic Skills</option>
+						<option value="Improving Skills">Improving Skills</option>
+						<option value="Advanced Boat Handling">Advanced Boat Handling</option>
+						<option value="Kites and Wires 1">Kites and Wires 1</option>
+						<option value="Kites and Wires 2">Kites and Wires 2</option>
+						<option value="Go Racing 1">Go Racing 1</option>
+						<option value="Go Racing 2">Go Racing 2</option>
+						<option value="Adventure 1 (Course C &amp; D only)">Adventure 1 (Course C &amp; D only)</option>
+						<option value="Adventure 2 (Course C &amp; D only)">Adventure 2 (Course C &amp; D only)</option>
+					</select>
+				</div>				
+
 				<div class="form-group" valdr-form-group>
 					<label for="age">Age</label>
-					<input type="number"
+					<input type="text"
 						class="form-control"
-						id="age"
 						name="age"
 						ng-model="person.age">
 				</div>
 
-			</form>
+				<hr>
+				<h4>Course Details</h4>
 
-			<pre>demoForm.$valid = {{demoForm.$valid}}</pre>
+				<div class="form-group" valdr-form-group>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">Course A: June 2nd to June 19th = 14 days = 490€</br>
+							<input type="checkbox" value="">Course B: June 22nd to July 3rd = 10 days = 350€</br>
+							<input type="checkbox" value="">Course C: July 13th to July 31st = 3 weeks / 15 days = 525€</br>
+							<input type="checkbox" value="">Course D: Aug 4th to 14th = 2 weeks / 9 days = 315€</br>
+						</label>
+					</div>
+				</div>
+
+				<p><i>Please choose a course by ticking a box above. If you do not click a course above you will not have made a booking but you will still be charged ISA Membership Fee of €16</i></p>
+
+				<hr>
+				<h4>Child Details</h4>
+
+				<div class="form-group" valdr-form-group>
+					<label for="childName">Child's Name</label>
+					<input type="text"
+						class="form-control"
+						name="childName"
+						ng-model="person.childName">
+				</div>
+
+				<div class="form-group" valdr-form-group>
+					<label for="medicalConditions">Any Allergies/Medical Conditions:</label>
+					<input type="text"
+						class="form-control"
+						name="medicalConditions"
+						ng-model="person.medicalConditions">
+				</div>
+
+				<div class="form-group" valdr-form-group>
+					<label for="dateOfBirth">Date of Birth (DD/MM/YYYY):</label>
+					<input type="text"
+						class="form-control"
+						name="dateOfBirth"
+						ng-model="person.dateOfBirth">
+				</div>
+
+				<div class="form-group" valdr-form-group>
+					<label for="boatType">Boat Type</label>
+					<select
+						class="form-control"
+						name="testController.boatType"
+						ng-model="testController.boatType">
+						<option value="" selected>-- please select boat type--</option>
+						<option value="Optimist">Optimist</option>
+						<option value="Feva">Feva</option>
+						<option value="Laser">Laser</option>
+						<option value="420">420</option>
+						<option value="Other">Other</option>
+					</select>
+				</div>
+
+				<div class="form-group" valdr-form-group>
+					<label for="membershipNo">Cadet Membership No, please leave blank if you do not have one</label>
+					<input type="text"
+						class="form-control"
+						name="membershipNo"
+						ng-model="person.membershipNo">
+				</div>
+
+				<p><i>Please Note: ISA Membership Fee of €16 is compulsory for all trainees. This amount is included in the cadet membership fee. If the sailor is not a cadet member this fee will be added to the cost of the course. </i></p>
+
+				<hr>
+				<h4>Comments</h4>
+				<textarea
+						class="form-control"
+						name="comments"
+						ng-model="person.comments">				
+				</textarea>
+
+				<hr>
+				<h4>Parent Members Details</h4>
+
+				<div class="form-group" valdr-form-group>
+					<label for="parentName">Name</label>
+					<input type="text"
+						class="form-control"
+						name="parentName"
+						ng-model="person.parentName">
+				</div>
+
+				<div class="form-group" valdr-form-group>
+					<label for="parentSponsor">If you are not a member, who is your sponsor</label>
+					<input type="text"
+						class="form-control"
+						name="parentSponsor"
+						ng-model="person.parentSponsor">
+				</div>
+
+				<div class="form-group" valdr-form-group>
+					<label for="parentMobile">Mobile (you can enter multiple numbers if you wish)</label>
+					<input type="text"
+						class="form-control"
+						name="parentMobile"
+						ng-model="person.parentMobile">
+				</div>
+
+				<div class="form-group" valdr-form-group>
+					<label for="parent2Mobile">Parent No. 2 Mobile (if applicable)</label>
+					<input type="text"
+						class="form-control"
+						name="parent2Mobile"
+						ng-model="person.parent2Mobile">
+				</div>
+
+				<div class="form-group" valdr-form-group>
+					<label for="parentEmail">E-Mail</label>
+					<input type="text"
+						class="form-control"
+						name="parentEmail"
+						ng-model="person.parentEmail">
+				</div>
+
+				<div class="form-group" valdr-form-group>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value=""><label for="parentEmail">I am interested in helping with events at the Club this season</label>
+						</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<hr>
+						<h4>RSGYC Junior Summer Courses Terms And Conditions</h4>
+						<p>Applications for Junior Summer Courses are taken on a first come first served basis. Once a course has been filled there will be no places made available unless there is a cancellation. If you cannot obtain a place on your course of choice please contact the sailing office to be added to the wait list. An application is not complete until all fields have been completed and payment received.</p>
+
+						<ul>
+							<li>A completed application does not guarantee a place on a course.</li>
+							<li>Please check your inbox for an automated confirmation email to ensure your application has been submitted successfully.</li>
+							<li>It is not permissible to do portions of courses and no credit can be issued for missed days.</li>
+							<li>When on the forecourt, all dinghies must display a current parking permit which can be collected once the boat is brought on to the Forecourt prior to the course start date. A permit can be obtained by completing the Summer Dinghy Parking application found here https://www.rsgyc.ie/apply/index.php/summerdinghy/form</li>
+							<li>Please note that all boats must have a valid parking permit and will not be permitted on the Forecourt or any course without this permit.</li>
+							<li>All boats and gear are stored at the owner's risk and the Club accepts no responsibility for any loss or damage.</li>
+							<li>Road trailers will not be permitted on the forecourt during the summer parking period. They must be removed immediately after delivery of boat or they will be removed from the Club at the owner's risk and expense.</li>
+							<li>All launching trolleys must be clearly marked, along with every piece of equipment and sails.</li>
+						</ul>
+					</div>
+				</div>
+
+
+				<hr>
+				<h4>Royal St. George Yacht Club Junior Code Of Conduct</h4>
+
+				<p>To be agreed by Parent and Child where the parent agrees on the child's behalf and agrees to inform the child of the code
+				I am a junior sailor (or parent agreeing on behalf of my child) participating on a Royal St. George Yacht Club course and understand that while taking part on the courses and any events at the club, I will: </p>
+				<ul>
+					<li>Show respect to fellow sailors, instructors, Club staff and those helping to run regattas, events and courses.</li>
+					<li>Obey all instructors' directions, event rules on and off the water and Club rules.</li>
+					<li>Attend each day on time and participate fully on the course.</li>
+					<li>Dress appropriately: i.e. wetsuits, booties and buoyancy aid.</li>
+				</ul>
+
+				<p>I will never:</p>
+				<ul>
+					<li>Steal, use or remove any gear that does not belong to me.</li>
+					<li>Break laws relating to alcohol, non-prescribed drugs and tobacco.</li>
+					<li>Cheat, bully or spread rumours.</li>
+				</ul>
+
+				<p>As a Sailor I am entitled to:</p>
+				<ul>
+					<li>Participate on an equal basis.</li>
+					<li>Be treated with dignity.</li>
+					<li>Be happy, have fun and enjoy the course both on the water and ashore.</li>
+				</ul>
+				<p>I understand that if it is found that any junior has not adhered to the above guidelines the following actions may be pursued:</p>
+				<p>A warning.</p>
+				<ul>
+					<li>Suspension from the course.</li>
+					<li>Suspension from the Club.</li>
+				</ul>
+
+				<hr>
+				<div class="bg-success">
+					<div class="row">
+						<div class="col-md-12">
+							<h4>Declaration</h4>
+							<ul>
+								<li>My/Our boat is insured</li>
+								<li>I/We hold adequate insurance against third party liability for a minimum of €1,300,000 for any one accident or series of accidents arising from any one occurrence for the period it is parked/moored/stored on the Club's property.</li>
+								<li>I/We acknowledge and agree that my/our boat will be parked/moored/stored absolutely at my/our own risk, and I/We hereby indemnify the Royal St. George Yacht Club, its trustees, officers, staff and members against any loss or damage, accident, claim, injury or mishap arising from the use of Club Moorings, Storage Space, Crane, Pontoons or Members' facilities which shall be at my/our own personal risk. </li>
+								<li>I/We confirm the boat detailed is my/our property and accept that while availing of Club facilities I/we shall be responsible for the management and control of the vessel and the conduct of its crew.</li>
+								<li>I/We confirm we have read, understand and accept the terms and conditions attaching to this application.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group" valdr-form-group>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="">My Child and I accept the Junior Summer Course 2015 Terms and Conditions, Declaration and will abide by the Code of Conduct.</br>
+							<input type="checkbox" value="">I understand that a current Dinghy Parking Permit is required and will complete the online application prior to bringing my boat onto the RSGYC Forecourt.</br>
+							<input type="checkbox" value="">My child does have permission to leave the Club at lunch time.</br>
+						</label>
+					</div>
+				</div>
+
+				<hr>
+				<h4>Credit Card Details</h4>
+
+				<div class="form-group" valdr-form-group>
+					<label for="form_parentName">Card Holder's Name * :</label>
+					<input type="text" name="cardholdername" class="form-control" required="">
+				</div>
+
+
+				<div class="form-group" valdr-form-group>
+					<label for="form_cardNumber">Card Number * :</label>
+					<input maxlength="18" type="text" name="cardnumber" class="form-control" required="">
+				</div>
+
+
+        <label for="form_card_expiry_date">Card Expiry Date & CVV * :</label>
+
+        <div class="row">
+          <div class="col-xs-4">
+            <select name="exp_month" data-stripe="exp-month" class="stripe-sensitive form-control">
+              <option value="" selected="selected">Month exp.</option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+            </select>
+          </div>
+          <div class="col-xs-4">
+            <select id="exp_year_id" name="exp_year" data-stripe="exp-year" class="stripe-sensitive required form-control">
+              <option value="">Year exp.</option>
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+							<option value="2026">2026</option>
+							<option value="2027">2027</option>
+            </select>
+          </div>
+          <div class="col-xs-4">
+            <input type="text" id="cvv_id" name="cvv" placeholder="CVV" maxlength="3" data-parsley-minlength="3" data-parsley-type="number" required class="card-cvc form-control">
+          </div>
+        </div>
+      
+        <div class="row" style="margin-top:10px">
+          <div class="col-xs-4">
+						<input type="submit" name="submit-button" class="btn btn-primary" value="SUBMIT and PAY">
+						demoForm.$valid = {{demoForm.$valid}}
+				  </div>
+				</div>
+
+
+
+
+			</form>
 
 		</div>
 	</div>
+</div>
 
 
 </body>

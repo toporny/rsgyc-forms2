@@ -5,14 +5,13 @@ grunt.initConfig({
 	  main: {
 		files: [
 			// includes files within path
-			{expand: false, src: ['bower_components/angular-translate/angular-translate.js'], dest: 'public_html/js/angular-translate.js', filter: 'isFile'},
-			{expand: false, src: ['bower_components/valdr/valdr.js'], dest: 'public_html/js/valdr.js', filter: 'isFile'},
-			{expand: false, src: ['bower_components/valdr/valdr.js'], dest: 'public_html/js/valdr.js', filter: 'isFile'},
-			{expand: false, src: ['bower_components/valdr/valdr-message.js'], dest: 'public_html/js/valdr-message.js', filter: 'isFile'},
+			{expand: false, src: ['bower_components/angular-translate/angular-translate.min.js'], dest: 'public_html/js/angular-translate.js', filter: 'isFile'},
+			{expand: false, src: ['bower_components/valdr/valdr.min.js'], dest: 'public_html/js/valdr.min.js', filter: 'isFile'},
+			{expand: false, src: ['bower_components/valdr/valdr-message.min.js'], dest: 'public_html/js/valdr-message.min.js', filter: 'isFile'},
 			{expand: false, src: ['bower_components/bootstrap/dist/css/bootstrap.css'], dest: 'public_html/css/bootstrap.css', filter: 'isFile'},
-			{expand: false, src: ['bower_components/valdr/valdr.js'], dest: 'public_html/js/valdr.js', filter: 'isFile'},
-			{expand: false, src: ['bower_components/angular-translate/angular-translate.js'], dest: 'public_html/js/angular-translate.js', filter: 'isFile'},
-			{expand: false, src: ['bower_components/angular/angular.js'], dest: 'public_html/js/angular.js', filter: 'isFile'},
+			{expand: false, src: ['bower_components/valdr/valdr.min.js'], dest: 'public_html/js/valdr.min.js', filter: 'isFile'},
+			{expand: false, src: ['bower_components/angular-translate/angular-translate.min.js'], dest: 'public_html/js/angular-translate.min.js', filter: 'isFile'},
+			{expand: false, src: ['bower_components/angular/angular.min.js'], dest: 'public_html/js/angular.min.js', filter: 'isFile'},
 		],
 	  },
 	},	

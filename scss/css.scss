@@ -5,23 +5,31 @@ $errorcolor: #C63D0F;
 	white-space: normal;
 }
 
-.valdr-message {
-    display: none;
+.valdr-message .ng-invalid.ng-touched .ng-dirty {
+  color: red;
 }
 
-.ng-submitted {
-	.row + .valdr-message {
-		padding: 10px 10px 10px 20px;
-	}
-	.valdr-message.ng-invalid {
-	    display: inline;
-	    color: $errorcolor;
-	    white-space: normal;
-    }
-    .valdr-message.ng-invalid {display:block;}
+.valdr-message.ng-untouched {
+  display: none;
+}
+
+.valdr-message.ng-touched {
+  color: red;
 }
 
 form {
+	.ng-submitted {
+		.row + .valdr-message {
+			padding: 10px 10px 10px 20px;
+		}
+		.valdr-message.ng-invalid {
+			display: inline;
+			color: $errorcolor;
+			white-space: normal;
+		}
+		.valdr-message.ng-invalid {display:block;}
+	}
+
 	.phone-error-messages {
 		display: none;
 		color: $errorcolor;
@@ -31,9 +39,6 @@ form {
 			display: block;
 		}
 	}
-}
-
-form {
 	.form-field-error {
 		white-space:normal;
 		color: $errorcolor;
