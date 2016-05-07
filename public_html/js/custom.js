@@ -1,5 +1,23 @@
-var demoApp = angular.module('demoApp', ['valdr', 'pascalprecht.translate']);
-  demoApp.config(function(valdrProvider) {
+// (function() {
+//   angular
+//     .module('paycom-core.validation', [
+//       'pascalprecht.translate',
+//       'valdr'
+//     ]);
+// })();
+
+
+
+var demoApp = angular.module('demoApp', ['valdr', 'pascalprecht.translate'])
+  .config(valdrProviderAddConstraints)
+  .config(valdrProviderAddCheckBoxValidator)
+
+  function valdrProviderAddCheckBoxValidator(valdrProvider) {
+    valdrProvider.addValidator('checkboxRequired');
+  }
+
+
+  function valdrProviderAddConstraints(valdrProvider) {
     valdrProvider.addConstraints({
       'Person': {
         'sailingModuleToComplete': {
@@ -133,12 +151,11 @@ var demoApp = angular.module('demoApp', ['valdr', 'pascalprecht.translate']);
 
       }
     });
-  });
+  };
 
 
-
-
-demoApp.factory('checkboxRequired', function () {
+(function() {
+  demoApp.factory('checkboxRequired', function () {
     return {
       name: 'checkboxRequired', // this is the validator name that can be referenced from the constraints JSON
       validate: function (value, constraint) {
@@ -147,21 +164,11 @@ demoApp.factory('checkboxRequired', function () {
         return value === constraint.value;
       }
     };  
-  // return {
-  //   name: 'checkboxRequired', // this is the validator name that can be referenced from the constraints JSON
-  //   validate: function (value, arguments) {
-  //     // console.log('value',value);
-  //     // console.log('arguments',arguments);
-  //     // value: the value to validate
-  //     // arguments: the validator arguments
-  //     return value === true;
-  //   }
-  // };
-});
+  });
+})();
 
-demoApp.config(function (valdrProvider) {
-  valdrProvider.addValidator('checkboxRequired');
-});
+
+
 
 
 
@@ -208,6 +215,10 @@ demoApp.config(function (valdrProvider) {
   demoApp.run(function (valdrMessage) {
      //valdrMessage.angularMessagesEnabled = true;
   });
+
+
+
+(function() {
 
   demoApp.controller('TestController', function ($scope, valdr) {
     vm = this;
@@ -272,3 +283,5 @@ demoApp.config(function (valdrProvider) {
 
 
   });
+
+})();
