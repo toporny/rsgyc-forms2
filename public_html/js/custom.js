@@ -5,6 +5,7 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
 
   function valdrProviderAddCheckBoxValidator(valdrProvider) {
     valdrProvider.addValidator('checkboxRequired');
+    valdrProvider.addValidator('radioRequired');
   }
 
   function valdrProviderAddConstraints(valdrProvider) {
@@ -17,6 +18,12 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
         },      
         'age': {
           'required': {
+            'message': "message.required"
+          },
+        },
+        'courseDetails': {
+          'radioRequired': {
+            'value': true,
             'message': "message.required"
           },
         },
@@ -160,6 +167,25 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
   };
 })();
 
+(function() {
+  angular.module('rsgycApp')
+  .factory('radioRequired', radioRequired); 
+
+    function radioRequired () {
+    return {
+      name: 'radioRequired', // this is the validator name that can be referenced from the constraints JSON
+      validate: function (value, constraint) {
+        console.log('value',value);
+        console.log('constraint',constraint);
+        
+        // value: the value to validate
+        // constraint: the validator arguments
+        return value === constraint.value;
+      }
+    };
+  };
+})();
+
 
 
 
@@ -256,6 +282,7 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
         'parentEmail' : 'Email',
         'boatType1': 'Boat type',
         'age': 'Age',
+        'courseDetails' : 'course details',
         'dateOfBirth1' : 'Birth date',
         'acceptTerms' :'acceptTerms',
         'understandParkingPermit': 'Parking Permit rules',
@@ -317,12 +344,19 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
         boatType: '',
         membershipNo: ''
     };
+    var child_data3 =  {
+        name: '',
+        dateOfBirth: '',
+        medicalConditions: '',
+        boatType: '',
+        membershipNo: ''
+    };
 
     vm.data = {
       sailing_module: '',
       age: '',
       course_details: 'A',
-      child: [child_data0, child_data1, child_data2, child_data2],
+      child: [child_data0, child_data1, child_data2, child_data3],
     };
 
 
@@ -363,52 +397,51 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
   var child1_template = ' \
   @{{childIndex}}@ \
   <div ng-repeat="item in [0,1,2,3]"> \
-{{item}} \
                   <button type="button" style="float:right" class="btn btn-danger btn-xs">Remove details</button> \
                   <h4>Child Details</h4> \
                   <div class="row"> \
                     <div class="col-xs-6"> \
-                      <label for="childName1">Child\'s Name</label> \
+                      <label for="childName{{item}}">Child\'s Name</label> \
                     </div> \
                     <div class="col-xs-6"> \
-                      <label for="dateOfBirth1">Date of Birth (DD/MM/YYYY): </label> \
+                      <label for="dateOfBirth{{item}}">Date of Birth (DD/MM/YYYY): </label> \
                     </div> \
                   </div> \
                   <div class="row"> \
                     <div class="col-xs-6" class="form-group" valdr-form-group> \
                     <input type="text" \
                       class="form-control" \
-                      name="childName1" \
+                      name="childName{{item}}" \
                       ng-model="testController.data.child[item].name"> \
                     </div> \
                     <div class="col-xs-6" class="form-group" valdr-form-group> \
                       <input type="text" \
                         class="form-control" \
-                        name="dateOfBirth1" \
+                        name="dateOfBirth{{item}}" \
                         ng-model="testController.data.child[item].dateOfBirth"> \
                     </div> \
                   </div> \
                   <div class="form-group" valdr-form-group> \
-                    <label for="medicalConditions1">Any Allergies/Medical Conditions:</label> \
+                    <label for="medicalConditions{{item}}">Any Allergies/Medical Conditions:</label> \
                     <input type="text" \
                       class="form-control" \
-                      name="medicalConditions1" \
-                      ng-model="testController.data.child[childIndex].medicalConditions"> \
+                      name="medicalConditions{{item}}" \
+                      ng-model="testController.data.child[item].medicalConditions"> \
                   </div> \
                   <div class="row"> \
                     <div class="col-xs-6"> \
-                      <label for="boatType1">Boat Type</label> \
+                      <label for="boatType{{item}}">Boat Type</label> \
                     </div> \
                     <div class="col-xs-6"> \
-                      <label for="dateOfBirth1">Cadet Membership No</label> \
+                      <label for="dateOfBirth{{item}}">Cadet Membership No</label> \
                     </div> \
                   </div> \
                   <div class="row"> \
                     <div class="col-xs-6" class="form-group" valdr-form-group> \
                       <select \
                         class="form-control" \
-                        name="boatType1" \
-                        ng-model="testController.data.child[childIndex].boatType"> \
+                        name="boatType{{item}}" \
+                        ng-model="testController.data.child[item].boatType"> \
                         <option value="" selected>-- please select boat type --</option> \
                         <option value="Optimist">Optimist</option> \
                         <option value="Feva">Feva</option> \
@@ -420,9 +453,9 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
                     <div class="col-xs-6" class="form-group" valdr-form-group> \
                       <input type="text" \
                         class="form-control" \
-                        name="membershipNo1" \
+                        name="membershipNo{{item}}" \
                         placeholder="leave blank if you don\'t have" \
-                        ng-model="testController.data.child[childIndex].membershipNo"> \
+                        ng-model="testController.data.child[item].membershipNo"> \
                     </div> \
                   </div> \
                   <button class="btn btn-success btn-xs">Add another child</button> \

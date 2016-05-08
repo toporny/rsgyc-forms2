@@ -58,12 +58,43 @@
 				<h4>Course Details</h4>
 
 				<div class="form-group" valdr-form-group>
+					<div class="radio" >
+						<label>
+							<input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="Course A: June 7th – 17th">
+							Course A: June 7th – 17th (bank holiday Mon 6th) 9 days  €315 member, 420 non- member
+						</label>
+					</div>
+
+					<div class="radio">
+						<label>
+							<input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="Course B: June 20th – July 1st">
+							Course B: June 20th – July 1st, 10 days €350 member, €455 non- member
+						</label>
+					</div>
+
+					<div class="radio">
+						<label>
+							<input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="Course C: July 4th – July 15th">
+							Course C: July 4th – July 15th 10 days €350 member, €455 non- member
+						</label>
+					</div>
+
+					<div class="radio">
+						<label>
+							<input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="Course D: August 2nd – 12th">
+							Course D: August 2nd – 12th, 9 days (bank holiday 1st) 9 days  €315 member, €420 non- member
+						</label>
+					</div>
+				</div>
+
+
+				<div class="form-group" valdr-form-group>
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" name="curse_A" value="Course A: June 7th – 17th">Course A: June 7th – 17th (bank holiday Mon 6th) 9 days  €315 member, 420 non- member</br>
-							<input type="checkbox" name="curse_B" value="Course B: June 20th – July 1st">Course B: June 20th – July 1st, 10 days €350 member, €455 non- member</br>
-							<input type="checkbox" name="curse_C" value="Course C: July 4th – July 15th">Course C: July 4th – July 15th 10 days €350 member, €455 non- member</br>
-							<input type="checkbox" name="curse_D" value="Course D: August 2nd – 12th">Course D: August 2nd – 12th, 9 days (bank holiday 1st) 9 days  €315 member, €420 non- member</br>
+							<input type="radiobutton" name="course_radio[]" value="Course A: June 7th – 17th">Course A: June 7th – 17th (bank holiday Mon 6th) 9 days  €315 member, 420 non- member</br>
+							<input type="radiobutton" name="course_radio[]" value="Course B: June 20th – July 1st">Course B: June 20th – July 1st, 10 days €350 member, €455 non- member</br>
+							<input type="radiobutton" name="course_radio[]" value="Course C: July 4th – July 15th">Course C: July 4th – July 15th 10 days €350 member, €455 non- member</br>
+							<input type="radiobutton" name="course_radio[]" value="Course D: August 2nd – 12th">Course D: August 2nd – 12th, 9 days (bank holiday 1st) 9 days  €315 member, €420 non- member</br>
 						</label>
 					</div>
 				</div>
