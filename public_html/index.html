@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Demo Form</title>
+	<title>Rsgyc Form</title>
 	<link href="css/bootstrap.css" media="all" rel="stylesheet" />
 	<link href="css/css.css" media="all" rel="stylesheet" />
 	<script src="js/angular.min.js"></script>
@@ -14,14 +14,14 @@
 	<script src="js/custom.js"></script>
 </head>
 
-<body ng-app="demoApp">
+<body ng-app="rsgycApp">
 
 <div class="col-sm-8 text-left"> 
 	<div class="panel-body">
 
 		<div ng-controller="TestController as testController" ng-class="{ 'form-submitted': testController.formSubm }">
 
-			<form name="testController.form" valdr-type="Person" novalidate ng-submit="testController.submit()">
+			<form name="testController.form" valdr-type="rsgycForm" novalidate ng-submit="testController.submit()">
 				
 				<h4>Junior Summer Sailing Course Application Form, Beginner, Improving and Advanced Sailors</h4>
 
@@ -46,7 +46,7 @@
 
 					<div class="col-xs-6">
 						<div class="form-group" valdr-form-group>
-							<select class="form-control" name="age" ng-model="testController.age_index">
+							<select class="form-control" name="age" ng-model="testController.data.age">
 								<option ng-repeat="option in testController.possible_ages" value="{{option.id}}">{{option.value}}</option>
 							</select>
 						</div>
@@ -70,78 +70,11 @@
 
 				<p><i>Please choose a course by ticking a box above. If you do not click a course above you will not have made a booking but you will still be charged ISA Membership Fee of €16</i></p>
 
-				<hr>
-				<h4>Child Details</h4>
+<input type="submit" name="submit-button" class="btn btn-primary" value="SUBMIT and PAY">
 
-				<div class="row">
-					<div class="col-xs-6">
-						<label for="childName">Child's Name</label>
-					</div>
+			<child1-detail childIndex='2' childData="{{testController.data.child}}"></child1-detail>
 
-					<div class="col-xs-6">
-						<label for="dateOfBirth">Date of Birth (DD/MM/YYYY):</label>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-xs-6" class="form-group" valdr-form-group>
-					<input type="text"
-						class="form-control"
-						name="childName"
-						ng-model="person.childName">
-					</div>
-
-					<div class="col-xs-6" class="form-group" valdr-form-group>
-						<input type="text"
-							class="form-control"
-							name="dateOfBirth"
-							ng-model="person.dateOfBirth">
-					</div>
-				</div>
-
-
-				<div class="form-group" valdr-form-group>
-					<label for="medicalConditions">Any Allergies/Medical Conditions:</label>
-					<input type="text"
-						class="form-control"
-						name="medicalConditions"
-						ng-model="person.medicalConditions">
-				</div>
-
-
-				<div class="row">
-					<div class="col-xs-6">
-						<label for="boatType">Boat Type</label>
-					</div>
-
-					<div class="col-xs-6">
-						<label for="dateOfBirth">Cadet Membership No</label>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-xs-6" class="form-group" valdr-form-group>
-						<select
-							class="form-control"
-							name="boatType"
-							ng-model="testController.boatType">
-							<option value="" selected>-- please select boat type--</option>
-							<option value="Optimist">Optimist</option>
-							<option value="Feva">Feva</option>
-							<option value="Laser">Laser</option>
-							<option value="420">420</option>
-							<option value="Other">Other</option>
-						</select>
-					</div>
-
-					<div class="col-xs-6" class="form-group" valdr-form-group>
-						<input type="text"
-							class="form-control"
-							name="membershipNo"
-							placeholder="leave blank if you don't have"
-							ng-model="person.membershipNo">
-					</div>
-				</div>
+testController.form.$valid = {{testController.form.$valid}}
 
 				<p><i>Please Note: ISA Membership Fee of €16 is compulsory for all trainees. This amount is included in the cadet membership fee. If the sailor is not a cadet member this fee will be added to the cost of the course. </i></p>
 
