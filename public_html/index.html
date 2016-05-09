@@ -24,7 +24,6 @@
 			<form name="testController.form" valdr-type="rsgycForm" novalidate ng-submit="testController.submit()">
 				
 				<h4>Junior Summer Sailing Course Application Form, Beginner, Improving and Advanced Sailors</h4>
-<button class="btn btn-primary" type="button" ng-click="testController.fill_debug()" value="Submit and Pay">DEBUG</button>        
 
 				<div class="row">
 					<div class="col-xs-6">
@@ -72,7 +71,7 @@
 
 				<div class="row">
 					<div class="col-xs-12">
-						<label for="howManyKids">How many cadets would you like to join?</label>
+						<label for="howManyKids">How many cadets would you like to add?</label>
 						<div class="form-group">
 							<select name="howManyKids" class="form-control"
 								ng-model="testController.data.possible_amount_of_kids_selected"
@@ -156,7 +155,7 @@
 				<div class="form-group" valdr-form-group>
 					<div class="checkbox">
 						<label>
-							<input name="helpingWithEvents" type="checkbox" value=""><label for="helpingWithEvents">I am interested in helping with events at the Club this season</label>
+							<input name="helpingWithEvents" ng-model="testController.data.helpingWithEvents" type="checkbox" value=""><label for="helpingWithEvents">I am interested in helping with events at the Club this season</label>
 						</label>
 					</div>
 				</div>
@@ -231,7 +230,7 @@
 				<div class="form-group" valdr-form-group>
 					<div class="checkbox">
 						<label>
-							<input name="acceptTerms" ng-model="testController.acceptTerms" type="checkbox">My Child and I accept the Junior Summer Course 2016 Terms and Conditions, Declaration and will abide by the Code of Conduct.</br>
+							<input name="acceptTerms" ng-model="testController.data.acceptTerms" type="checkbox">My Child and I accept the Junior Summer Course 2016 Terms and Conditions, Declaration and will abide by the Code of Conduct.</br>
 						</label>
 					</div>
 				</div>
@@ -239,7 +238,7 @@
 				<div class="form-group" valdr-form-group>
 					<div class="checkbox">
 						<label>
-							<input name="understandParkingPermit" ng-model="testController.understandParkingPermit" type="checkbox" value="">I understand that a current Dinghy Parking Permit is required and will complete the online application prior to bringing my boat onto the RSGYC Forecourt.</br>
+							<input name="understandParkingPermit" ng-model="testController.data.understandParkingPermit" type="checkbox" value="">I understand that a current Dinghy Parking Permit is required and will complete the online application prior to bringing my boat onto the RSGYC Forecourt.</br>
 						</label>
 					</div>
 				</div>
@@ -257,12 +256,12 @@
 
 				<div class="form-group" valdr-form-group>
 					<label for="cardHolderName">Card Holder's Name * :</label>
-					<input ng-model="testController.cardholdername" type="text" name="cardholdername" class="form-control">
+					<input ng-model="testController.data.cardholdername" type="text" name="cardholdername" class="form-control">
 				</div>
 
 				<div class="form-group" valdr-form-group>
 					<label for="cardNumber">Card Number * :</label>
-					<input ng-model="testController.cardnumber" maxlength="18" type="tel" name="cardnumber" class="form-control">
+					<input ng-model="testController.data.cardnumber" maxlength="18" type="tel" name="cardnumber" class="form-control">
 				</div>
 
 				<label for="form_card_expiry_date">Card Expiry Date & CVV * :</label>
@@ -270,29 +269,33 @@
 				<div class="row">
 					<div class="col-xs-4">
 						<div class="form-group" valdr-form-group>
-							<select ng-model="testController.months_index" name="exp_month" data-stripe="exp-month" class="stripe-sensitive form-control">
-								<option ng-repeat="option in testController.months" value="{{option.id}}">{{option.value}}</option>
+							<select name="exp_month" class="stripe-sensitive form-control" data-stripe="exp-month"
+								ng-model="testController.data.months_index"
+								ng-options="opt as opt.label for opt in testController.possibleMonths">
 							</select>
 						</div>
 					</div>
 					<div class="col-xs-4">
 						<div class="form-group" valdr-form-group>
-							<select ng-model="testController.year_index" id="exp_year_id" name="exp_year" data-stripe="exp-year" class="stripe-sensitive form-control">
-								<option ng-repeat="option in testController.year" value="{{option.id}}">{{option.value}}</option>
+
+							<select name="exp_year" data-stripe="exp-year" class="stripe-sensitive form-control"
+								ng-model="testController.data.year_index"
+								ng-options="opt as opt.label for opt in testController.possibleYear">
 							</select>
+
 						</div>
 					</div>
 					<div class="col-xs-4">
 						<div class="form-group" valdr-form-group>
-							<input ng-model="testController.cvv_index" type="tel" id="cvv_id" name="cvv" placeholder="CVV" maxlength="3" class="card-cvc form-control">
+							<input ng-model="testController.data.cvv_index" type="tel" id="cvv_id" name="cvv" placeholder="CVV" maxlength="3" class="card-cvc form-control">
 						</div>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="col-xs-4">
-						<button class="btn btn-success" type="submit" value="Submit and Pay">SUBMIT and PAY</button>
-						<button class="btn btn-primary" type="button" ng-click="testController.fill_debug()" value="Submit and Pay">DEBUG</button>        
+						<button class="btn btn-primary" type="submit" value="Submit and Pay">SUBMIT and PAY</button>
+						<button class="btn btn-success" type="button" ng-click="testController.fill_debug()" value="Submit and Pay">Fill the form (debug button)</button>        
 					</div>
 				</div>
       

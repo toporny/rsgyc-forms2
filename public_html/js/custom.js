@@ -1,24 +1,31 @@
-
 angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
   .config(valdrProviderAddConstraints)
   .config(valdrProviderAddCheckBoxValidator)
+  .config(valdrProviderAddSelectListValidator);
+
 
   function valdrProviderAddCheckBoxValidator(valdrProvider) {
     valdrProvider.addValidator('checkboxRequired');
+  }
+
+  function valdrProviderAddSelectListValidator(valdrProvider) {
+    valdrProvider.addValidator('selectListValidator');
   }
 
   function valdrProviderAddConstraints(valdrProvider) {
     valdrProvider.addConstraints({
       'rsgycForm': {
         'sailingModuleToComplete': {
-          'required': {
-            'message': 'Please select Sailing Module.'
+          "selectList": {
+            "required": true,
+            "message": "message.required"
           }
         },      
         'age': {
-          'required': {
-            'message': "message.required"
-          },
+          "selectList": {
+            "required": true,
+            "message": "message.required"
+          }
         },
         'courseDetails': {
           'pattern': {
@@ -126,22 +133,24 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
           }
         },
         'exp_month': {
-          'required': {
-            'message': "message.required"
-          },
+          "selectList": {
+            "required": true,
+            "message": "message.required"
+          }
         },
         'exp_year': {
-          'required': {
-            'message': "message.required"
-          },
+          "selectList": {
+            "required": true,
+            "message": "message.required"
+          }
         },
         'cvv': {
           'required': {
             'message': "message.required"
           },
           'pattern': {
-            'value': /^\d.*$/,
-            'message': "message.digits"
+            'value': /^\d\d\d$/,
+            'message': "has to have 3 digits"
           }
         },
 
@@ -166,6 +175,33 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
   };
 })();
 
+
+(function() {
+    angular.module('rsgycApp')
+      .factory('selectListValidator', selectListValidator);
+
+  selectListValidator.$inject = [];
+
+  function selectListValidator() {
+    return {
+      name: 'selectList',
+      validate: function (value, constraint) {
+        console.log('value',value);
+        console.log('constraint',constraint);
+
+        if ( constraint.required && angular.isDefined(value) ) {
+          if (angular.isNumber(value.value)) {
+            return value.value > 0;  
+          } else if (angular.isString(value.value)) {
+            return value.value !== ''
+          }
+        }
+        return false;
+      }
+    };
+  }
+})();    
+  
 
 
 
@@ -214,17 +250,17 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
     function getMonths () {
       var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       var months = [];
-      months = [{id : '',  value: '- exp. month -'}];
-      for (i=0;i<12;i++) {
-        months.push({id : i+1, value: '('+((i<9)?('0'+(i+1)):i+1)+') ' + monthNames[i]});
+      months = [{value : '',  label: '- exp. month -'}];
+      for (i=0; i<12; i++) {
+        months.push({value : i+1, label: '['+((i<9)?('0'+(i+1)):i+1)+'] ' + monthNames[i]});
       }
       return months;
     }
 
     function getCreditCardExpYears () {
-      years = [{id : '',  value: '- exp. year -'}];
+      years = [{value : '',  label: '- exp. year -'}];
       for (i = new Date().getFullYear(); i<new Date().getFullYear()+25; i++) {
-        years.push({id : i, value: i})
+        years.push({value : i, label: i})
       }
       return years;
     }
@@ -269,6 +305,7 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
         'properMobile' : 'Wrong {{fieldName}} format. Only digits allowed.'
       },
       'rsgycForm': {
+        'sailingModuleToComplete': "Sailing Module",
         'childName1': 'Child name',
         'parentName': 'Parent name',
         'parentMobile': 'Parent Mobile Phone',
@@ -313,8 +350,9 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
     vm.sailing_module = prepareSelectData.getSailingModules();
     vm.possible_ages = prepareSelectData.getPossibleAges();
     vm.posible_course_types = prepareSelectData.getCourseTypes();
-    vm.months = prepareSelectData.getMonths();
-    vm.year = prepareSelectData.getCreditCardExpYears();
+    vm.possibleMonths = prepareSelectData.getMonths();
+    console.log('possibleMonths',vm.possibleMonths);
+    vm.possibleYear = prepareSelectData.getCreditCardExpYears();
     vm.possible_amount_of_kids = prepareSelectData.getPossibleAmountOfKids();
     
     var child_data =  {
@@ -336,7 +374,12 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
       sailingModuleToComplete_index: vm.sailing_module[0],
       possible_amount_of_kids_selected: vm.possible_amount_of_kids[0],
       courseDetails: false,
+      helpingWithEvents: false,
+      acceptTerms: false,
+      understandParkingPermit: false,
       age_index: vm.possible_ages[0],
+      months_index: vm.possibleMonths[0],
+      year_index: vm.possibleYear[0],
       course_details: 'A',
       child: [child_data, angular.copy(child_data), angular.copy(child_data), angular.copy(child_data)],
     };
@@ -346,8 +389,34 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
 
     function fill_debug() {
       console.log('fill_debug');
-      var tmp = prepareSelectData.getSailingModules();
-      vm.data.sailingModuleToComplete_index = tmp[2];
+      vm.data.sailingModuleToComplete_index = vm.sailing_module[1];
+      vm.data.age_index = vm.possible_ages[3];
+      vm.data.courseDetails = 'Course B: June 20th – July 1st';
+      vm.data.possible_amount_of_kids_selected = vm.possible_amount_of_kids[1];
+      vm.data.child[0].name = 'Mark Szyszko';
+      vm.data.child[0].dateOfBirth = '20/09/2010';
+      vm.data.child[0].medicalConditions = 'no allergies';
+      vm.data.child[0].boatType ='Feva';
+      vm.data.child[0].membershipNo = '123456789'
+      vm.data.child[1].name = 'Brat Szyszko';
+      vm.data.child[1].dateOfBirth = '20/09/2009';
+      vm.data.child[1].medicalConditions = 'gluten allergies';
+      vm.data.child[1].boatType = 'Laser';
+      vm.data.child[1].membershipNo = '234567890';
+      vm.data.comments = 'Only Mark can swim. Brat doesn\'t have this ability.';
+      vm.data.parentName = 'Przemyslaw Rzeznik';
+      vm.data.parentSponsor = 'Adidas';
+      vm.data.parentMobile = '+353861055707';
+      vm.data.secondParentMobile = '+353861055707';
+      vm.data.parentEmail = 'przemyslaw.rzeznik@gmail.com';
+      vm.data.helpingWithEvents = true;
+      vm.data.acceptTerms = true;
+      vm.data.understandParkingPermit = true;
+      vm.data.cardholdername = 'Brian Zuckenberg';
+      vm.data.cardnumber = '1234567890123456';
+      vm.data.year_index = vm.possibleYear[3];
+      vm.data.months_index = vm.possibleMonths[3];
+      vm.data.cvv_index = '123';
     }
 
 
@@ -356,13 +425,15 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
       vm.formSubm = true;
       console.log('vm.data', vm.data);
 
-      vm.showAllErrors = function () {
-      }
+      // vm.showAllErrors = function () {
+      // }
 
       if (vm.form.$valid) {
         console.log('form valid');
+        alert("Form is valid.\nThank you\nEmail notification was sent. (not yet ready)\n(price calculation is not yet ready)\n(stripe connection is not yet ready)");
       }
       else {
+        alert('Form is not valid. Correct fields marked as red');
         console.warn('form not valid');
       }
     }
@@ -374,11 +445,7 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
 
 (function() {
   angular.module('rsgycApp')
-  .directive('childDetail', childDetail)
-  // .directive('child2Detail', child2Detail)
-  // .directive('child3Detail', child3Detail)
-  // .directive('child4Detail', child4Detail)
-  ;
+  .directive('childDetail', childDetail);
 
   function childDetail() {
   var child_template = ' \
@@ -460,9 +527,6 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
       template: child_template
     };
   };
-
-
-
 
 
 })();
