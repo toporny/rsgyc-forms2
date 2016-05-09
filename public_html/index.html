@@ -24,6 +24,7 @@
 			<form name="testController.form" valdr-type="rsgycForm" novalidate ng-submit="testController.submit()">
 				
 				<h4>Junior Summer Sailing Course Application Form, Beginner, Improving and Advanced Sailors</h4>
+<button class="btn btn-primary" type="button" ng-click="testController.fill_debug()" value="Submit and Pay">DEBUG</button>        
 
 				<div class="row">
 					<div class="col-xs-6">
@@ -38,16 +39,19 @@
 				<div class="row">
 					<div class="col-xs-6">
 						<div class="form-group" valdr-form-group>
-							<select class="form-control" name="sailingModuleToComplete" ng-model="testController.sailingModuleToComplete_index">
-								<option ng-repeat="option in testController.sailing_module" value="{{option.id}}">{{option.value}}</option>
+							<select name="sailingModuleToComplete" class="form-control"
+								ng-model="testController.data.sailingModuleToComplete_index"
+								ng-options="opt as opt.label for opt in testController.sailing_module">
 							</select>
+
 						</div>
 					</div>
 
 					<div class="col-xs-6">
 						<div class="form-group" valdr-form-group>
-							<select class="form-control" name="age" ng-model="testController.data.age">
-								<option ng-repeat="option in testController.possible_ages" value="{{option.id}}">{{option.value}}</option>
+							<select name="age" class="form-control"
+								ng-model="testController.data.age_index"
+								ng-options="opt as opt.label for opt in testController.possible_ages">
 							</select>
 						</div>
 					</div>
@@ -58,54 +62,32 @@
 				<h4>Course Details</h4>
 
 				<div class="form-group" valdr-form-group>
-					<div class="radio" >
+					<div class="radio" ng-repeat="option in testController.posible_course_types">
 						<label>
-							<input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="Course A: June 7th – 17th">
-							Course A: June 7th – 17th (bank holiday Mon 6th) 9 days  €315 member, 420 non- member
-						</label>
-					</div>
-
-					<div class="radio">
-						<label>
-							<input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="Course B: June 20th – July 1st">
-							Course B: June 20th – July 1st, 10 days €350 member, €455 non- member
-						</label>
-					</div>
-
-					<div class="radio">
-						<label>
-							<input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="Course C: July 4th – July 15th">
-							Course C: July 4th – July 15th 10 days €350 member, €455 non- member
-						</label>
-					</div>
-
-					<div class="radio">
-						<label>
-							<input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="Course D: August 2nd – 12th">
-							Course D: August 2nd – 12th, 9 days (bank holiday 1st) 9 days  €315 member, €420 non- member
+							<input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="{{option.id}}">
+							{{option.value}}
 						</label>
 					</div>
 				</div>
 
-
-				<div class="form-group" valdr-form-group>
-					<div class="checkbox">
-						<label>
-							<input type="radiobutton" name="course_radio[]" value="Course A: June 7th – 17th">Course A: June 7th – 17th (bank holiday Mon 6th) 9 days  €315 member, 420 non- member</br>
-							<input type="radiobutton" name="course_radio[]" value="Course B: June 20th – July 1st">Course B: June 20th – July 1st, 10 days €350 member, €455 non- member</br>
-							<input type="radiobutton" name="course_radio[]" value="Course C: July 4th – July 15th">Course C: July 4th – July 15th 10 days €350 member, €455 non- member</br>
-							<input type="radiobutton" name="course_radio[]" value="Course D: August 2nd – 12th">Course D: August 2nd – 12th, 9 days (bank holiday 1st) 9 days  €315 member, €420 non- member</br>
-						</label>
+				<div class="row">
+					<div class="col-xs-12">
+						<label for="howManyKids">How many cadets would you like to join?</label>
+						<div class="form-group">
+							<select name="howManyKids" class="form-control"
+								ng-model="testController.data.possible_amount_of_kids_selected"
+								ng-options="opt as opt.label for opt in testController.possible_amount_of_kids">
+							</select>
+	 					</div>
 					</div>
 				</div>
 
-				<p><i>Please choose a course by ticking a box above. If you do not click a course above you will not have made a booking but you will still be charged ISA Membership Fee of €16</i></p>
-
-<input type="submit" name="submit-button" class="btn btn-primary" value="SUBMIT and PAY">
-
-			<child1-detail childIndex='2' childData="{{testController.data.child}}"></child1-detail>
-
-testController.form.$valid = {{testController.form.$valid}}
+				<div ng-switch="testController.data.possible_amount_of_kids_selected.value">
+					<child-detail ng-switch-when="1" childIndex="{{testController.data.possible_amount_of_kids_selected.value}}" childData="{{testController.data.child}}"></child-detail>
+					<child-detail ng-switch-when="2" childIndex="{{testController.data.possible_amount_of_kids_selected.value}}" childData="{{testController.data.child}}"></child-detail>
+					<child-detail ng-switch-when="3" childIndex="{{testController.data.possible_amount_of_kids_selected.value}}" childData="{{testController.data.child}}"></child-detail>
+					<child-detail ng-switch-when="4" childIndex="{{testController.data.possible_amount_of_kids_selected.value}}" childData="{{testController.data.child}}"></child-detail>
+				</div>
 
 				<p><i>Please Note: ISA Membership Fee of €16 is compulsory for all trainees. This amount is included in the cadet membership fee. If the sailor is not a cadet member this fee will be added to the cost of the course. </i></p>
 
@@ -114,7 +96,7 @@ testController.form.$valid = {{testController.form.$valid}}
 				<textarea
 					class="form-control"
 					name="comments"
-					ng-model="person.comments">
+					ng-model="testController.data.comments">
 				</textarea>
 
 				<hr>
@@ -125,7 +107,7 @@ testController.form.$valid = {{testController.form.$valid}}
 					<input type="text"
 						class="form-control"
 						name="parentName"
-						ng-model="person.parentName">
+						ng-model="testController.data.parentName">
 				</div>
 
 				<div class="form-group" valdr-form-group>
@@ -133,7 +115,7 @@ testController.form.$valid = {{testController.form.$valid}}
 					<input type="text"
 						class="form-control"
 						name="parentSponsor"
-						ng-model="person.parentSponsor">
+						ng-model="testController.data.parentSponsor">
 				</div>
 
 				<div class="row">
@@ -142,7 +124,7 @@ testController.form.$valid = {{testController.form.$valid}}
 					</div>
 
 					<div class="col-xs-6">
-						<label for="parent2Mobile">Second parent mobile (optional)</label>
+						<label for="secondParentMobile">Second parent mobile (optional)</label>
 					</div>
 				</div>
 
@@ -151,15 +133,15 @@ testController.form.$valid = {{testController.form.$valid}}
 						<input type="text"
 							class="form-control"
 							name="parentMobile"
-							ng-model="person.parentMobile">
+							ng-model="testController.data.parentMobile">
 					</div>
 
 					<div class="col-xs-6" class="form-group" valdr-form-group>
 						<input type="text"
 							class="form-control"
-							name="parent2Mobile"
+							name="secondParentMobile"
 							placeholder=""
-							ng-model="person.parent2Mobile">
+							ng-model="testController.data.secondParentMobile">
 					</div>
 				</div>
 
@@ -168,13 +150,13 @@ testController.form.$valid = {{testController.form.$valid}}
 					<input type="text"
 						class="form-control"
 						name="parentEmail"
-						ng-model="person.parentEmail">
+						ng-model="testController.data.parentEmail">
 				</div>
 
 				<div class="form-group" valdr-form-group>
 					<div class="checkbox">
 						<label>
-							<input name="parentEmail" type="checkbox" value=""><label for="parentEmail">I am interested in helping with events at the Club this season</label>
+							<input name="helpingWithEvents" type="checkbox" value=""><label for="helpingWithEvents">I am interested in helping with events at the Club this season</label>
 						</label>
 					</div>
 				</div>
@@ -184,7 +166,6 @@ testController.form.$valid = {{testController.form.$valid}}
 						<hr>
 						<h4>RSGYC Junior Summer Courses Terms And Conditions</h4>
 						<p>Applications for Junior Summer Courses are taken on a first come first served basis. Once a course has been filled there will be no places made available unless there is a cancellation. If you cannot obtain a place on your course of choice please contact the sailing office to be added to the wait list. An application is not complete until all fields have been completed and payment received.</p>
-
 						<ul>
 							<li>A completed application does not guarantee a place on a course.</li>
 							<li>Please check your inbox for an automated confirmation email to ensure your application has been submitted successfully.</li>
@@ -284,43 +265,41 @@ testController.form.$valid = {{testController.form.$valid}}
 					<input ng-model="testController.cardnumber" maxlength="18" type="tel" name="cardnumber" class="form-control">
 				</div>
 
+				<label for="form_card_expiry_date">Card Expiry Date & CVV * :</label>
 
-		        <label for="form_card_expiry_date">Card Expiry Date & CVV * :</label>
-
-		        <div class="row">
-		          <div class="col-xs-4">
-					<div class="form-group" valdr-form-group>
-		              <select ng-model="testController.months_index" name="exp_month" data-stripe="exp-month" class="stripe-sensitive form-control">
-						<option ng-repeat="option in testController.months" value="{{option.id}}">{{option.value}}</option>
-		              </select>
-		            </div>
-		          </div>
-		          <div class="col-xs-4">
-					<div class="form-group" valdr-form-group>
-						<select ng-model="testController.year_index" id="exp_year_id" name="exp_year" data-stripe="exp-year" class="stripe-sensitive form-control">
-							<option ng-repeat="option in testController.year" value="{{option.id}}">{{option.value}}</option>
-						</select>
-		            </div>
-		          </div>
-		          <div class="col-xs-4">
-					<div class="form-group" valdr-form-group>
-			            <input ng-model="testController.cvv_index" type="tel" id="cvv_id" name="cvv" placeholder="CVV" maxlength="3" class="card-cvc form-control">
-					</div>
-		          </div>
-		        </div>
-
-		        <button style="margin-top:10px" class="btn btn-primary" type="submit" value="submit">submit
-		        </button>        
-      
-				!{{testController.formSubm}}@
-
-				<div class="row" style="margin-top:10px">
+				<div class="row">
 					<div class="col-xs-4">
-						<input type="submit" name="submit-button" class="btn btn-primary" value="SUBMIT and PAY">
-							testController.form.$valid = {{testController.form.$valid}}
+						<div class="form-group" valdr-form-group>
+							<select ng-model="testController.months_index" name="exp_month" data-stripe="exp-month" class="stripe-sensitive form-control">
+								<option ng-repeat="option in testController.months" value="{{option.id}}">{{option.value}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group" valdr-form-group>
+							<select ng-model="testController.year_index" id="exp_year_id" name="exp_year" data-stripe="exp-year" class="stripe-sensitive form-control">
+								<option ng-repeat="option in testController.year" value="{{option.id}}">{{option.value}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group" valdr-form-group>
+							<input ng-model="testController.cvv_index" type="tel" id="cvv_id" name="cvv" placeholder="CVV" maxlength="3" class="card-cvc form-control">
+						</div>
 					</div>
 				</div>
 
+				<div class="row">
+					<div class="col-xs-4">
+						<button class="btn btn-success" type="submit" value="Submit and Pay">SUBMIT and PAY</button>
+						<button class="btn btn-primary" type="button" ng-click="testController.fill_debug()" value="Submit and Pay">DEBUG</button>        
+					</div>
+				</div>
+      
+<!--
+ 				!{{testController.formSubm}}@
+				testController.form.$valid = {{testController.form.$valid}}
+ -->
 			</form>
 
 		</div>

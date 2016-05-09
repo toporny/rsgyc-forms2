@@ -5,7 +5,6 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
 
   function valdrProviderAddCheckBoxValidator(valdrProvider) {
     valdrProvider.addValidator('checkboxRequired');
-    valdrProvider.addValidator('radioRequired');
   }
 
   function valdrProviderAddConstraints(valdrProvider) {
@@ -22,10 +21,10 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
           },
         },
         'courseDetails': {
-          'radioRequired': {
-            'value': true,
+          'pattern': {
+            'value': /^Course.*$/,
             'message': "message.required"
-          },
+          },          
         },
         'boatType1': {
           'required': {
@@ -59,7 +58,7 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
             'message': "message.properMobile"
           },
         },
-        'parent2Mobile': {
+        'secondParentMobile': {
           'maxLength': {
             'number': 30,
             'message': "message.maxLength"
@@ -167,25 +166,6 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
   };
 })();
 
-(function() {
-  angular.module('rsgycApp')
-  .factory('radioRequired', radioRequired); 
-
-    function radioRequired () {
-    return {
-      name: 'radioRequired', // this is the validator name that can be referenced from the constraints JSON
-      validate: function (value, constraint) {
-        console.log('value',value);
-        console.log('constraint',constraint);
-        
-        // value: the value to validate
-        // constraint: the validator arguments
-        return value === constraint.value;
-      }
-    };
-  };
-})();
-
 
 
 
@@ -195,26 +175,38 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
 
   function prepareSelectData () {
 
-    function getSailingModules() {
+      // <input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="Course B: June 20th – July 1st">
+      // Course B: June 20th – July 1st, 10 days €350 member, €455 non- member
+
+    function getCourseTypes() {
       return [  
-        {id : '',  value: '-- select --'},
-        {id : "Start Sailing" , value: "Start Sailing"},
-        {id : "Basic Skills" , value: "Basic Skills"},
-        {id : "Improving Skills" , value: "Improving Skills"},
-        {id : "Advanced Boat Handling" , value: "Advanced Boat Handling"},
-        {id : "Kites and Wires 1" , value: "Kites and Wires 1"},
-        {id : "Kites and Wires 2" , value: "Kites and Wires 2"},
-        {id : "Go Racing 1" , value: "Go Racing 1"},
-        {id : "Go Racing 2" , value: "Go Racing 2"},
-        {id : "Adventure 1 (Course C &amp; D only)" , value: "Adventure 1 (Course C &amp; D only)"},
-        {id : "Adventure 2 (Course C &amp; D only)" , value: "Adventure 2 (Course C &amp; D only)"}
+        {id : "Course A: June 7th – 17th" , value: "Course A: June 7th – 17th (bank holiday Mon 6th) 9 days  €315 member, 420 non- member"},
+        {id : "Course B: June 20th – July 1st" , value: "Course B: June 20th – July 1st, 10 days €350 member, €455 non- member"},
+        {id : "Course C: July 4th – July 15th" , value: "Course C: July 4th – July 15th 10 days €350 member, €455 non- member"},
+        {id : "Course D: August 2nd – 12th" , value: "Course D: August 2nd – 12th, 9 days (bank holiday 1st) 9 days  €315 member, €420 non- member"},
+      ];
+    }
+
+    function getSailingModules() {
+      return [
+        {value : '',  label: '-- select --'},
+        {value : "Start Sailing" , label: "Start Sailing"},
+        {value : "Basic Skills" , label: "Basic Skills"},
+        {value : "Improving Skills" , label: "Improving Skills"},
+        {value : "Advanced Boat Handling" , label: "Advanced Boat Handling"},
+        {value : "Kites and Wires 1" , label: "Kites and Wires 1"},
+        {value : "Kites and Wires 2" , label: "Kites and Wires 2"},
+        {value : "Go Racing 1" , label: "Go Racing 1"},
+        {value : "Go Racing 2" , label: "Go Racing 2"},
+        {value : "Adventure 1 (Course C &amp; D only)" , label: "Adventure 1 (Course C &amp; D only)"},
+        {value : "Adventure 2 (Course C &amp; D only)" , label: "Adventure 2 (Course C &amp; D only)"}
       ];
     }
 
     function getPossibleAges () {
-      possible_ages = [{id : '',  value: '-- select --'}];
+      possible_ages = [{value : '',  label: '-- select --'}];
       for (i=9; i<19; i++) {
-        possible_ages.push({id : i, value: i});
+        possible_ages.push({value : i, label: i});
       }
       return possible_ages;
     }
@@ -237,16 +229,18 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
       return years;
     }
 
-    function getCadetList () {
+    function getPossibleAmountOfKids () {
       cadetList = [];
-      for (i = 1; i < 4; i++) {
-        cadetList.push({id : i, value: i})
+      for (i = 1; i <= 4; i++) {
+        cadetList.push({value : i, label: i + ' cadet'+((i>1)?'s':'')});
       }
       return cadetList;
     }
 
+
     return {
-      getCadetList: getCadetList,
+      getPossibleAmountOfKids: getPossibleAmountOfKids,
+      getCourseTypes: getCourseTypes,
       getSailingModules: getSailingModules,
       getPossibleAges: getPossibleAges,
       getMonths: getMonths,
@@ -278,7 +272,7 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
         'childName1': 'Child name',
         'parentName': 'Parent name',
         'parentMobile': 'Parent Mobile Phone',
-        'parent2Mobile': 'Parent 2 Mobile Phone',
+        'secondParentMobile': 'Parent 2 Mobile Phone',
         'parentEmail' : 'Email',
         'boatType1': 'Boat type',
         'age': 'Age',
@@ -312,56 +306,49 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
 
     vm = this;
     vm.submit = submit;
+    vm.fill_debug = fill_debug;
     vm.formSubm = false;
     vm.data = {};
-    vm.showSecondChild = true;
-    vm.showThirdChild = true;
-    vm.showFourthChild = true;
 
     vm.sailing_module = prepareSelectData.getSailingModules();
     vm.possible_ages = prepareSelectData.getPossibleAges();
+    vm.posible_course_types = prepareSelectData.getCourseTypes();
     vm.months = prepareSelectData.getMonths();
     vm.year = prepareSelectData.getCreditCardExpYears();
+    vm.possible_amount_of_kids = prepareSelectData.getPossibleAmountOfKids();
+    
+    var child_data =  {
+        // name: 'Imie pierwsze',
+        // dateOfBirth: '20/09/1973',
+        // medicalConditions: 'brak numer 1',
+        // boatType: 'Feva',
+        // membershipNo: '123'
+        name: '',
+        dateOfBirth: '',
+        medicalConditions: '',
+        boatType: '',
+        membershipNo: ''
+    };
 
-    var child_data0 =  {
-        name: 'Imie pierwsze',
-        dateOfBirth: '20/09/1973',
-        medicalConditions: 'brak numer 1',
-        boatType: 'Feva',
-        membershipNo: '123'
-    };
-    var child_data1 =  {
-        name: 'Imie drugie',
-        dateOfBirth: '02/02/2019',
-        medicalConditions: 'brak numer 2',
-        boatType: 'Laser',
-        membershipNo: 'dwa fwa'
-    };
-    var child_data2 =  {
-        name: '',
-        dateOfBirth: '',
-        medicalConditions: '',
-        boatType: '',
-        membershipNo: ''
-    };
-    var child_data3 =  {
-        name: '',
-        dateOfBirth: '',
-        medicalConditions: '',
-        boatType: '',
-        membershipNo: ''
-    };
+    vm.kidsIndexesArray = [0];
 
     vm.data = {
-      sailing_module: '',
-      age: '',
+      sailingModuleToComplete_index: vm.sailing_module[0],
+      possible_amount_of_kids_selected: vm.possible_amount_of_kids[0],
+      courseDetails: false,
+      age_index: vm.possible_ages[0],
       course_details: 'A',
-      child: [child_data0, child_data1, child_data2, child_data3],
+      child: [child_data, angular.copy(child_data), angular.copy(child_data), angular.copy(child_data)],
     };
 
-
-    console.log('controler start');
     //vm.form.$setPristine();
+
+
+    function fill_debug() {
+      console.log('fill_debug');
+      var tmp = prepareSelectData.getSailingModules();
+      vm.data.sailingModuleToComplete_index = tmp[2];
+    }
 
 
     function submit() {
@@ -387,18 +374,17 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
 
 (function() {
   angular.module('rsgycApp')
-  .directive('child1Detail', child1Detail)
+  .directive('childDetail', childDetail)
   // .directive('child2Detail', child2Detail)
   // .directive('child3Detail', child3Detail)
   // .directive('child4Detail', child4Detail)
   ;
 
-  function child1Detail() {
-  var child1_template = ' \
-  @{{childIndex}}@ \
-  <div ng-repeat="item in [0,1,2,3]"> \
-                  <button type="button" style="float:right" class="btn btn-danger btn-xs">Remove details</button> \
-                  <h4>Child Details</h4> \
+  function childDetail() {
+  var child_template = ' \
+                <div ng-repeat="item in childIndexArray"> \
+                <hr>\
+                  <h4>Child {{item+1}} Details:</h4> \
                   <div class="row"> \
                     <div class="col-xs-6"> \
                       <label for="childName{{item}}">Child\'s Name</label> \
@@ -458,249 +444,25 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
                         ng-model="testController.data.child[item].membershipNo"> \
                     </div> \
                   </div> \
-                  <button class="btn btn-success btn-xs">Add another child</button> \
-  </div> \
+                </div> \
     ';
 
     return {
       scope: "=",
         link: function($scope, $element, $attrs) {
-          $scope.childIndex = parseInt($attrs.childindex);
-          $scope.childData = angular.fromJson($attrs.childdata);
-          console.log('$scope.childIndex', $scope.childIndex);
-          console.log('$scope.childData', $scope.childData);
-
-//          $scope.titleaha = $attrs.childdata.name;
-//           $scope.childData =  'nowy tytul';
-
-
+          var tmpArray = [];
+          for (i=0; i< $attrs.childindex; i++) {
+            tmpArray.push(i);
+          }
+          $scope.childIndexArray = tmpArray;
           return $element;
       },
-      template: child1_template
+      template: child_template
     };
   };
 
 
 
-
-  // function child2Detail() {
-  // var child2_template = ' \
-  // <hr> \
-  // <button type="button" style="float:right" class="btn btn-danger btn-xs">Remove details</button> \
-  // <h4>Second Child Details</h4> \
-  // <div class="row"> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="childName2">Child\'s Name</label> \
-  //                   </div> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="dateOfBirth2">Date of Birth (DD/MM/YYYY): </label> \
-  //                   </div> \
-  //                 </div> \
-  //                 <div class="row"> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                   <input type="text" \
-  //                     class="form-control" \
-  //                     name="childName2" \
-  //                     ng-model="testController.childName2"> \
-  //                   </div> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                     <input type="text" \
-  //                       class="form-control" \
-  //                       name="dateOfBirth2" \
-  //                       ng-model="testController.dateOfBirth2"> \
-  //                   </div> \
-  //                 </div> \
-  //                 <div class="form-group" valdr-form-group> \
-  //                   <label for="medicalConditions2">Any Allergies/Medical Conditions:</label> \
-  //                   <input type="text" \
-  //                     class="form-control" \
-  //                     name="medicalConditions2" \
-  //                     ng-model="testController.medicalConditions2"> \
-  //                 </div> \
-  //                 <div class="row"> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="boatType2">Boat Type</label> \
-  //                   </div> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="dateOfBirth2">Cadet Membership No</label> \
-  //                   </div> \
-  //                 </div> \
-  //                 <div class="row"> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                     <select \
-  //                       class="form-control" \
-  //                       name="boatType2" \
-  //                       ng-model="testController.boatType2"> \
-  //                       <option value="" selected>-- please select boat type --</option> \
-  //                       <option value="Optimist">Optimist</option> \
-  //                       <option value="Feva">Feva</option> \
-  //                       <option value="Laser">Laser</option> \
-  //                       <option value="420">420</option> \
-  //                       <option value="Other">Other</option> \
-  //                     </select> \
-  //                   </div> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                     <input type="text" \
-  //                       class="form-control" \
-  //                       name="membershipNo2" \
-  //                       placeholder="leave blank if you don\'t have" \
-  //                       ng-model="testController.membershipNo2"> \
-  //                   </div> \
-  //                 </div> \
-  //                 <button class="btn btn-success btn-xs">Add another child</button> \
-  //   ';
-
-  //   return {
-  //     template: child2_template
-  //   };
-  // };
-
-
-  // function child3Detail() {
-  // var child3_template = ' \
-  // <hr> \
-  // <button type="button" style="float:right" class="btn btn-danger btn-xs">Remove details</button> \
-  // <h4>Third Child Details</h4> \
-  // <div class="row"> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="childName3">Child\'s Name</label> \
-  //                   </div> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="dateOfBirth3">Date of Birth (DD/MM/YYYY): </label> \
-  //                   </div> \
-  //                 </div> \
-  //                 <div class="row"> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                   <input type="text" \
-  //                     class="form-control" \
-  //                     name="childName3" \
-  //                     ng-model="testController.childName3"> \
-  //                   </div> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                     <input type="text" \
-  //                       class="form-control" \
-  //                       name="dateOfBirth3" \
-  //                       ng-model="testController.dateOfBirth3"> \
-  //                   </div> \
-  //                 </div> \
-  //                 <div class="form-group" valdr-form-group> \
-  //                   <label for="medicalConditions3">Any Allergies/Medical Conditions:</label> \
-  //                   <input type="text" \
-  //                     class="form-control" \
-  //                     name="medicalConditions3" \
-  //                     ng-model="testController.medicalConditions3"> \
-  //                 </div> \
-  //                 <div class="row"> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="boatType3">Boat Type</label> \
-  //                   </div> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="dateOfBirth3">Cadet Membership No</label> \
-  //                   </div> \
-  //                 </div> \
-  //                 <div class="row"> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                     <select \
-  //                       class="form-control" \
-  //                       name="boatType3" \
-  //                       ng-model="testController.boatType3"> \
-  //                       <option value="" selected>-- please select boat type --</option> \
-  //                       <option value="Optimist">Optimist</option> \
-  //                       <option value="Feva">Feva</option> \
-  //                       <option value="Laser">Laser</option> \
-  //                       <option value="420">420</option> \
-  //                       <option value="Other">Other</option> \
-  //                     </select> \
-  //                   </div> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                     <input type="text" \
-  //                       class="form-control" \
-  //                       name="membershipNo3" \
-  //                       placeholder="leave blank if you don\'t have" \
-  //                       ng-model="testController.membershipNo3"> \
-  //                   </div> \
-  //                 </div> \
-  //                 <button class="btn btn-success btn-xs">Add another child</button> \
-  //   ';
-
-  //   return {
-  //     template: child3_template
-  //   };
-  // };
-
-
-
-  // function child4Detail() {
-  // var child4_template = ' \
-  // <hr> \
-  // <button type="button" style="float:right" class="btn btn-danger btn-xs">Remove details</button> \
-  // <h4>Fourth Child Details</h4> \
-  // <div class="row"> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="childName4">Child\'s Name</label> \
-  //                   </div> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="dateOfBirth4">Date of Birth (DD/MM/YYYY): </label> \
-  //                   </div> \
-  //                 </div> \
-  //                 <div class="row"> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                   <input type="text" \
-  //                     class="form-control" \
-  //                     name="childName4" \
-  //                     ng-model="testController.childName4"> \
-  //                   </div> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                     <input type="text" \
-  //                       class="form-control" \
-  //                       name="dateOfBirth4" \
-  //                       ng-model="testController.dateOfBirth4"> \
-  //                   </div> \
-  //                 </div> \
-  //                 <div class="form-group" valdr-form-group> \
-  //                   <label for="medicalConditions4">Any Allergies/Medical Conditions:</label> \
-  //                   <input type="text" \
-  //                     class="form-control" \
-  //                     name="medicalConditions4" \
-  //                     ng-model="testController.medicalConditions4"> \
-  //                 </div> \
-  //                 <div class="row"> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="boatType4">Boat Type</label> \
-  //                   </div> \
-  //                   <div class="col-xs-6"> \
-  //                     <label for="dateOfBirth4">Cadet Membership No</label> \
-  //                   </div> \
-  //                 </div> \
-  //                 <div class="row"> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                     <select \
-  //                       class="form-control" \
-  //                       name="boatType4" \
-  //                       ng-model="testController.boatType4"> \
-  //                       <option value="" selected>-- please select boat type --</option> \
-  //                       <option value="Optimist">Optimist</option> \
-  //                       <option value="Feva">Feva</option> \
-  //                       <option value="Laser">Laser</option> \
-  //                       <option value="420">420</option> \
-  //                       <option value="Other">Other</option> \
-  //                     </select> \
-  //                   </div> \
-  //                   <div class="col-xs-6" class="form-group" valdr-form-group> \
-  //                     <input type="text" \
-  //                       class="form-control" \
-  //                       name="membershipNo4" \
-  //                       placeholder="leave blank if you don\'t have" \
-  //                       ng-model="testController.membershipNo4"> \
-  //                   </div> \
-  //                 </div> \
-  //                 <button class="btn btn-success btn-xs">Add another child</button> \
-  //   ';
-
-  //   return {
-  //     template: child4_template
-  //   };
-  // };
 
 
 })();
