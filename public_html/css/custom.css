@@ -1,0 +1,12 @@
+.valdr-message {
+  display: none;
+}
+
+.valdr-message.ng-invalid.ng-dirty.ng-touched, .form-submitted .valdr-message.ng-invalid {
+  display: inline;
+  color: red;
+}
+
+input.ng-invalid.ng-dirty.ng-touched, .form-submitted input.ng-invalid {
+  color: red;
+}
