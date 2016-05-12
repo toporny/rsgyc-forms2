@@ -4,9 +4,6 @@
 
   function prepareSelectData () {
 
-      // <input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="Course B: June 20th – July 1st">
-      // Course B: June 20th – July 1st, 10 days €350 member, €455 non- member
-
     function getCourseTypes() {
       return [  
         {id : "Course A: June 7th – 17th" , value: "Course A: June 7th – 17th (bank holiday Mon 6th) 9 days  €315 member, 420 non- member"},

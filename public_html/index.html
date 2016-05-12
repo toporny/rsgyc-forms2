@@ -14,16 +14,23 @@
 	
 	<script src="forms/form1_validations.js"></script>
 	<script src="services/prepare_select_data.js"></script>
+	<script src="services/calculate-price.js"></script>
+	<script src="directives/child-detail.directive.js"></script>
 	<script src="controllers/test.controller.js"></script>
 </head>
 
 <body ng-app="rsgycApp">
 
+<div ng-controller="PriceController as priceController">
+		<p style="position: fixed; z-index:1; padding:5px 10px 5px 5px; text-align:right; width:100%;" class="bg-primary"> Price:  {{priceController.data.price}}</p>
+</div>
+
 <div class="col-sm-8 text-left"> 
 	<div class="panel-body">
+
 		<div ng-controller="TestController as testController" ng-class="{ 'form-submitted': testController.formSubm }">
 			<form name="testController.form" valdr-type="rsgycForm" novalidate ng-submit="testController.submit()">
-				<h4>Junior Summer Sailing Course Application Form, Beginner, Improving and Advanced Sailors</h4>
+				<h4 style="margin-top:22px" >Junior Summer Sailing Course Application Form, Beginner, Improving and Advanced Sailors</h4>
 				<div class="row">
 					<div class="col-xs-6">
 						<label for="sailingModuleToComplete">Sailing Module to complete</label>

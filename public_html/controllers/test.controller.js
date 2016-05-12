@@ -1,5 +1,21 @@
 (function() {
   angular.module('rsgycApp')
+  .controller('PriceController', PriceController);
+
+  PriceController.$inject = ['$scope', 'calculatePrice'];
+
+  function PriceController ($scope, calculatePrice) {
+    vm = this;
+    vm.data = {
+      price: calculatePrice.doCalculation()
+    };
+  };
+})();
+
+
+
+(function() {
+  angular.module('rsgycApp')
   .controller('TestController', TestController);
 
   TestController.$inject = ['$scope', 'valdr', 'prepareSelectData'];
