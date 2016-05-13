@@ -1,6 +1,6 @@
 (function() {
   angular.module('rsgycApp')
-  .service('prepareSelectData', prepareSelectData);
+  .factory('prepareSelectData', prepareSelectData);
 
   function prepareSelectData () {
 

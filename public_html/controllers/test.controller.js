@@ -1,16 +1,51 @@
-(function() {
-  angular.module('rsgycApp')
-  .controller('PriceController', PriceController);
 
-  PriceController.$inject = ['$scope', 'calculatePrice'];
+// (function() {
+//   angular.module('rsgycApp')
+//   .controller('ApplicationCtrl', ApplicationCtrl);
+//   ApplicationCtrl.$inject = ['$scope', 'User'];
+//   function ApplicationCtrl ($scope,User) {
+//     vm = this;
+//     vm.getHelloMessage = getHelloMessage;
 
-  function PriceController ($scope, calculatePrice) {
-    vm = this;
-    vm.data = {
-      price: calculatePrice.doCalculation()
-    };
-  };
-})();
+//     function getHelloMessage () {
+//       return User.sayHello();
+//     };
+//   };
+// })();
+
+
+
+// (function() {
+//   angular.module('rsgycApp')
+//   .provider('User', User);
+
+//   function User() {
+ 
+//       this._username = '';
+//       this.$get = function () {
+//           var that = this;
+//           function sayHello() {
+//             return 'Hello, ' + that._username;
+//           };
+//           return {
+//               sayHello: sayHello
+//           };
+//       };
+//   };
+// })();
+
+
+// (function() {
+//   angular.module('rsgycApp')
+//   .config(config);
+
+//   ApplicationCtrl.$inject = ['UserProvider'];
+
+//   function config(UserProvider) {
+//     UserProvider._username = 'werwerwerwer from config';
+//   };
+
+// })();
 
 
 
@@ -18,15 +53,16 @@
   angular.module('rsgycApp')
   .controller('TestController', TestController);
 
-  TestController.$inject = ['$scope', 'valdr', 'prepareSelectData'];
+  TestController.$inject = ['$scope', '$rootScope', 'valdr', 'prepareSelectData'];
 
-  function TestController ($scope, valdr, prepareSelectData) {
+  function TestController ($scope, $rootScope, valdr, prepareSelectData) {
 
     vm = this;
     vm.submit = submit;
     vm.fill_debug = fill_debug;
     vm.formSubm = false;
     vm.data = {};
+    $rootScope.price = 123;
 
     vm.sailing_module = prepareSelectData.getSailingModules();
     vm.possible_ages = prepareSelectData.getPossibleAges();
@@ -47,6 +83,7 @@
     vm.kidsIndexesArray = [0];
 
     vm.data = {
+      price: 123.45,
       sailingModuleToComplete_index: vm.sailing_module[0],
       possible_amount_of_kids_selected: vm.possible_amount_of_kids[0],
       courseDetails: false,
