@@ -1,68 +1,17 @@
-
-// (function() {
-//   angular.module('rsgycApp')
-//   .controller('ApplicationCtrl', ApplicationCtrl);
-//   ApplicationCtrl.$inject = ['$scope', 'User'];
-//   function ApplicationCtrl ($scope,User) {
-//     vm = this;
-//     vm.getHelloMessage = getHelloMessage;
-
-//     function getHelloMessage () {
-//       return User.sayHello();
-//     };
-//   };
-// })();
-
-
-
-// (function() {
-//   angular.module('rsgycApp')
-//   .provider('User', User);
-
-//   function User() {
- 
-//       this._username = '';
-//       this.$get = function () {
-//           var that = this;
-//           function sayHello() {
-//             return 'Hello, ' + that._username;
-//           };
-//           return {
-//               sayHello: sayHello
-//           };
-//       };
-//   };
-// })();
-
-
-// (function() {
-//   angular.module('rsgycApp')
-//   .config(config);
-
-//   ApplicationCtrl.$inject = ['UserProvider'];
-
-//   function config(UserProvider) {
-//     UserProvider._username = 'werwerwerwer from config';
-//   };
-
-// })();
-
-
-
 (function() {
   angular.module('rsgycApp')
   .controller('TestController', TestController);
 
-  TestController.$inject = ['$scope', '$rootScope', 'valdr', 'prepareSelectData'];
+  TestController.$inject = ['$scope',   'valdr', 'prepareSelectData'];
 
-  function TestController ($scope, $rootScope, valdr, prepareSelectData) {
+  function TestController ($scope,  valdr, prepareSelectData) {
 
     vm = this;
     vm.submit = submit;
     vm.fill_debug = fill_debug;
     vm.formSubm = false;
     vm.data = {};
-    $rootScope.price = 123;
+    vm.calculatePrice = calculatePrice;
 
     vm.sailing_module = prepareSelectData.getSailingModules();
     vm.possible_ages = prepareSelectData.getPossibleAges();
@@ -71,7 +20,7 @@
     vm.possibleYear = prepareSelectData.getCreditCardExpYears();
     vm.possible_amount_of_kids = prepareSelectData.getPossibleAmountOfKids();
     //$locationProvider.html5Mode(true);
-    
+
     var child_data =  {
         name: '',
         dateOfBirth: '',
@@ -99,6 +48,11 @@
 
     //vm.form.$setPristine();
 
+
+
+    function calculatePrice() {
+      console.log('calculatePrice()');
+    }
 
     function fill_debug() {
       console.log('fill_debug');

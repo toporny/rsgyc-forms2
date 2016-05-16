@@ -6,7 +6,7 @@
 
 
     function doCalculation() {
-      return 123;
+      return 123.233;
     }
 
 
