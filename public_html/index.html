@@ -22,11 +22,11 @@
 </head>
 
 <body ng-app="rsgycApp">
-  <div class="blue-price bg-primary show-price" price="" ></div>
- 
+
+<div class="blue-price bg-primary show-price" price=""></div>
+
 <div class="col-sm-8 text-left"> 
   <div class="panel-body">
-
     <div ng-controller="TestController as testController" ng-class="{ 'form-submitted': testController.formSubm }">
       <form name="testController.form" valdr-type="rsgycForm" novalidate ng-submit="testController.submit()">
         <h4 style="margin-top:22px">Junior Summer Sailing Course Application Form, Beginner, Improving and Advanced Sailors</h4>
@@ -42,7 +42,6 @@
           <div class="col-xs-6">
             <div class="form-group" valdr-form-group>
               <select name="sailingModuleToComplete" class="form-control"
-                ng-change="testController.calculatePrice()"
                 ng-model="testController.data.sailingModuleToComplete_index"
                 ng-options="opt as opt.label for opt in testController.sailing_module">
               </select>
@@ -64,7 +63,12 @@
         <div class="form-group" valdr-form-group>
           <div class="radio" ng-repeat="option in testController.posible_course_types">
             <label>
-              <input type="radio" ng-model="testController.data.courseDetails" name="courseDetails" value="{{option.id}}">
+              <input
+              	type="radio"
+              	ng-model="testController.data.courseDetails"
+                ng-change="testController.recalculatePrice()"              	
+              	name="courseDetails"
+              	value="{{option.id}}">
               {{option.value}}
             </label>
           </div>

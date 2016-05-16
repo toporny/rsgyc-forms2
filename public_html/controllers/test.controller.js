@@ -2,16 +2,16 @@
   angular.module('rsgycApp')
   .controller('TestController', TestController);
 
-  TestController.$inject = ['$scope',   'valdr', 'prepareSelectData'];
+  TestController.$inject = ['$scope', '$rootScope', 'calculatePrice',  'valdr', 'prepareSelectData'];
 
-  function TestController ($scope,  valdr, prepareSelectData) {
+  function TestController ($scope, $rootScope, calculatePrice, valdr, prepareSelectData) {
 
     vm = this;
     vm.submit = submit;
     vm.fill_debug = fill_debug;
     vm.formSubm = false;
     vm.data = {};
-    vm.calculatePrice = calculatePrice;
+    vm.recalculatePrice = recalculatePrice;
 
     vm.sailing_module = prepareSelectData.getSailingModules();
     vm.possible_ages = prepareSelectData.getPossibleAges();
@@ -20,6 +20,10 @@
     vm.possibleYear = prepareSelectData.getCreditCardExpYears();
     vm.possible_amount_of_kids = prepareSelectData.getPossibleAmountOfKids();
     //$locationProvider.html5Mode(true);
+
+    $rootScope.$on('recalculatePriceEvent', function (event, data) {
+      console.log('$rootScope.$on(recalculatePriceEvent', data); // 'Data to send'
+    });   
 
     var child_data =  {
         name: '',
@@ -32,7 +36,6 @@
     vm.kidsIndexesArray = [0];
 
     vm.data = {
-      price: 123.45,
       sailingModuleToComplete_index: vm.sailing_module[0],
       possible_amount_of_kids_selected: vm.possible_amount_of_kids[0],
       courseDetails: false,
@@ -50,8 +53,9 @@
 
 
 
-    function calculatePrice() {
-      console.log('calculatePrice()');
+    function recalculatePrice() {
+      console.log('vm.data.courseDetails = ', vm.data.courseDetails);
+      $rootScope.$emit('recalculatePriceEvent', vm.data);
     }
 
     function fill_debug() {
