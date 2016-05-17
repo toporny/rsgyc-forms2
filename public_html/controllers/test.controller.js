@@ -1,5 +1,27 @@
 (function() {
   angular.module('rsgycApp')
+  .controller('PriceController', PriceController);
+
+  PriceController.$inject = ['$scope', '$rootScope', 'calculatePrice'];
+
+  function PriceController ($scope, $rootScope, calculatePrice) {
+    vm = this;
+    vm.data = {
+      price : '0'
+    };
+
+    that = vm;
+    $rootScope.$on('recalculatePriceEvent', function (event, data) {
+      that.data.price = calculatePrice.getPrice(data);
+    });
+    
+
+  }
+})();
+
+
+(function() {
+  angular.module('rsgycApp')
   .controller('TestController', TestController);
 
   TestController.$inject = ['$scope', '$rootScope', 'calculatePrice',  'valdr', 'prepareSelectData'];
@@ -21,9 +43,9 @@
     vm.possible_amount_of_kids = prepareSelectData.getPossibleAmountOfKids();
     //$locationProvider.html5Mode(true);
 
-    $rootScope.$on('recalculatePriceEvent', function (event, data) {
-      console.log('$rootScope.$on(recalculatePriceEvent', data); // 'Data to send'
-    });   
+    // $rootScope.$on('recalculatePriceEvent', function (event, data) {
+    //   console.log('$rootScope.$on(recalculatePriceEvent', data); // 'Data to send'
+    // });   
 
     var child_data =  {
         name: '',
@@ -45,7 +67,6 @@
       age_index: vm.possible_ages[0],
       months_index: vm.possibleMonths[0],
       year_index: vm.possibleYear[0],
-      course_details: 'A',
       child: [child_data, angular.copy(child_data), angular.copy(child_data), angular.copy(child_data)],
     };
 
@@ -54,8 +75,9 @@
 
 
     function recalculatePrice() {
-      console.log('vm.data.courseDetails = ', vm.data.courseDetails);
+      console.log('vm.data = ', vm.data);
       $rootScope.$emit('recalculatePriceEvent', vm.data);
+      console.log('emit ! ');
     }
 
     function fill_debug() {

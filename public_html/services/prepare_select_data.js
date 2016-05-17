@@ -6,10 +6,10 @@
 
     function getCourseTypes() {
       return [  
-        {id : "Course A: June 7th – 17th" , value: "Course A: June 7th – 17th (bank holiday Mon 6th) 9 days  €315 member, 420 non- member"},
-        {id : "Course B: June 20th – July 1st" , value: "Course B: June 20th – July 1st, 10 days €350 member, €455 non- member"},
-        {id : "Course C: July 4th – July 15th" , value: "Course C: July 4th – July 15th 10 days €350 member, €455 non- member"},
-        {id : "Course D: August 2nd – 12th" , value: "Course D: August 2nd – 12th, 9 days (bank holiday 1st) 9 days  €315 member, €420 non- member"},
+        {id : "Course_A" , value: "Course A: June 7th – 17th (bank holiday Mon 6th) 9 days  €315 member, 420 non- member"},
+        {id : "Course_B" , value: "Course B: June 20th – July 1st, 10 days €350 member, €455 non- member"},
+        {id : "Course_C" , value: "Course C: July 4th – July 15th 10 days €350 member, €455 non- member"},
+        {id : "Course_D" , value: "Course D: August 2nd – 12th, 9 days (bank holiday 1st) 9 days  €315 member, €420 non- member"},
       ];
     }
 

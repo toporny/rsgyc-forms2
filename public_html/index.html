@@ -16,14 +16,15 @@
   <script src="services/prepare_select_data.js"></script>
   <script src="services/calculate-price.js"></script>
   <script src="directives/child-detail.directive.js"></script>
-  <script src="directives/show-price.directive.js"></script>
   <script src="controllers/test.controller.js"></script>
 
 </head>
 
 <body ng-app="rsgycApp">
 
-<div class="blue-price bg-primary show-price" price=""></div>
+<div ng-controller="PriceController as priceController">
+	<div class="blue-price bg-primary">{{priceController.data.price | currency : "€" : 2}}</div>
+</div>
 
 <div class="col-sm-8 text-left"> 
   <div class="panel-body">

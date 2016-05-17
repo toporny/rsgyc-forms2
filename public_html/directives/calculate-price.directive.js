@@ -14,10 +14,6 @@
     };
 
     function linkShowPrice(scope, element, attr) {
-      $rootScope.$on('recalculatePriceEvent2', function (event, data) {
-        console.log(data); // 'Data to send'
-      });
-      console.log('doCalculation');
       scope.price = calculatePrice.doCalculation();
     }
 
