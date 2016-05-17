@@ -14,8 +14,9 @@
     };
 
     function doCalculation(data) {
-      var aha = data.courseDetails;
-      return prices[aha].member;
+      if (!angular.isDefined(data.courseDetails) || data.courseDetails === false) return 0;
+      console.log('data.courseDetails',data.courseDetails);
+      return prices[data.courseDetails].member * data.possible_amount_of_kids_selected.value;
     }
 
     function getPrice(data) {

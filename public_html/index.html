@@ -67,7 +67,7 @@
               <input
               	type="radio"
               	ng-model="testController.data.courseDetails"
-                ng-change="testController.recalculatePrice()"              	
+                ng-change="testController.recalculatePrice()"
               	name="courseDetails"
               	value="{{option.id}}">
               {{option.value}}
@@ -81,6 +81,7 @@
             <div class="form-group">
               <select name="howManyKids" class="form-control"
                 ng-model="testController.data.possible_amount_of_kids_selected"
+                ng-change="testController.recalculatePrice()"
                 ng-options="opt as opt.label for opt in testController.possible_amount_of_kids">
               </select>
              </div>
