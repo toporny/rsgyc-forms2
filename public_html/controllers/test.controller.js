@@ -9,13 +9,10 @@
     vm.data = {
       price : '0'
     };
-
     that = vm;
     $rootScope.$on('recalculatePriceEvent', function (event, data) {
       that.data.price = calculatePrice.getPrice(data);
     });
-    
-
   }
 })();
 
@@ -24,9 +21,9 @@
   angular.module('rsgycApp')
   .controller('TestController', TestController);
 
-  TestController.$inject = ['$scope', '$rootScope', 'calculatePrice',  'valdr', 'prepareSelectData'];
+  TestController.$inject = ['$scope', '$rootScope', 'communication', 'calculatePrice',  'valdr', 'prepareSelectData'];
 
-  function TestController ($scope, $rootScope, calculatePrice, valdr, prepareSelectData) {
+  function TestController ($scope, $rootScope, communication, calculatePrice, valdr, prepareSelectData) {
 
     vm = this;
     vm.submit = submit;
@@ -43,9 +40,6 @@
     vm.possible_amount_of_kids = prepareSelectData.getPossibleAmountOfKids();
     //$locationProvider.html5Mode(true);
 
-    // $rootScope.$on('recalculatePriceEvent', function (event, data) {
-    //   console.log('$rootScope.$on(recalculatePriceEvent', data); // 'Data to send'
-    // });   
 
     var child_data =  {
         name: '',
@@ -61,6 +55,7 @@
       sailingModuleToComplete_index: vm.sailing_module[0],
       possible_amount_of_kids_selected: vm.possible_amount_of_kids[0],
       courseDetails: false,
+      price: 0,
       helpingWithEvents: false,
       acceptTerms: false,
       understandParkingPermit: false,
@@ -70,7 +65,10 @@
       child: [child_data, angular.copy(child_data), angular.copy(child_data), angular.copy(child_data)],
     };
 
-    //vm.form.$setPristine();
+    $rootScope.$on('recalculatePriceEvent', function (event, data) {
+     console.log('testController data',data);
+      vm.data.price = calculatePrice.getPrice(data);
+    });
 
 
 
@@ -114,20 +112,20 @@
 
 
     function submit() {
-      console.log('submit');
       vm.formSubm = true;
-      console.log('vm.data', vm.data);
 
+      communication.send(1);
       // vm.showAllErrors = function () {
       // }
 
+
+
       if (vm.form.$valid) {
-        console.log('form valid');
-        alert("Form is valid.\nThank you\nEmail notification was sent. (not yet ready)\n(price calculation is not yet ready)\n(stripe connection is not yet ready)");
+        console.log('vm.data', vm.data);
+        console.log("Form is valid.\nThank you\nEmail notification was sent. (not yet ready)\n(price calculation is not yet ready)\n(stripe connection is not yet ready)");
       }
       else {
-        alert('Form is not valid. Correct fields marked as red');
-        console.warn('form not valid');
+        console.warn('Form is not valid. Correct fields marked as red');
       }
     }
   };

@@ -1,11 +1,16 @@
 angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
   .config(valdrProviderAddConstraints)
   .config(valdrProviderAddCheckBoxValidator)
-  .config(valdrProviderAddSelectListValidator);
+  .config(valdrProviderAddSelectListValidator)
+  //.config(valdrNameAllVariables)
+  ;
 
-  valdrProviderAddConstraints.$inject = ['valdrProvider'];
+
+  valdrProviderAddConstraints.$inject = ['valdrProvider', '$translateProvider'];
   valdrProviderAddCheckBoxValidator.$inject = ['valdrProvider'];
   valdrProviderAddSelectListValidator.$inject = ['valdrProvider'];
+  //valdrNameAllVariables.$inject = ['valdrMessageProvider, $translateProvider'];
+
 
   function valdrProviderAddCheckBoxValidator(valdrProvider) {
     valdrProvider.addValidator('checkboxRequired');
@@ -15,7 +20,11 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
     valdrProvider.addValidator('selectListValidator');
   }
 
-  function valdrProviderAddConstraints(valdrProvider) {
+ function valdrNameAllVariables(valdrMessageProvider, $translateProvider) {
+
+  }  
+
+  function valdrProviderAddConstraints(valdrProvider, $translateProvider) {
     valdrProvider.addConstraints({
       'rsgycForm': {
         'sailingModuleToComplete': {
@@ -159,6 +168,42 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
 
       }
     });
+
+    $translateProvider.preferredLanguage('en');
+
+    $translateProvider.translations('en', {
+        'message': {
+          'required'  : '{{fieldName}} is required.',
+          //'size'      : '{{fieldName}} must have minimum {{min}} and maximum {{max}} characters.',
+          'minLength' : '{{fieldName}} must have at least {{number}} characters.',
+          'maxLength' : '{{fieldName}} must have maximum {{number}} characters.',
+          'properName' : '{{fieldName}} - please type proper name.',
+          'birthdate' : '{{fieldName}} - wrong format.',
+          'digits' : '{{fieldName}} - only digits allowed.',
+          'properMobile' : 'Wrong {{fieldName}} format. Only digits allowed.'
+        },
+        'rsgycForm': {
+          'sailingModuleToComplete' : 'Module',
+          'courseDetails': 'Course details',
+          'childName': 'Child name',
+          'parentName': 'Parent name',
+          'parentMobile': 'Parent Mobile Phone',
+          'parent2Mobile': 'Parent 2 Mobile Phone',
+          'parentEmail' : 'Email',
+          'boatType': 'Boat type',
+          'age': 'Age',
+          'dateOfBirth' : 'Birth date',
+          'acceptTerms' :'Terms acceptation',
+          'understandParkingPermit': 'Parking Permit rules acceptation',
+          'cardholdername' : 'Cardholder name',
+          'cardnumber' : 'Card number',
+          'exp_month' : 'Expired month',
+          'exp_year' : 'Expired year',
+          'cvv' : 'CVV'
+
+        }
+      });
+          
   };
 
 
@@ -204,3 +249,5 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
     };
   }
 })();
+
+
