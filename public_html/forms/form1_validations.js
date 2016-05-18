@@ -1,4 +1,6 @@
-angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
+angular.module('rsgycApp', ['valdr', 'pascalprecht.translate']);
+
+angular.module('rsgycApp')
   .config(valdrProviderAddConstraints)
   .config(valdrProviderAddCheckBoxValidator)
   .config(valdrProviderAddSelectListValidator)
