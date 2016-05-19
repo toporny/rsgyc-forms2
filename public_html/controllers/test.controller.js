@@ -114,15 +114,11 @@
     function submit() {
       vm.formSubm = true;
 
-      communication.send(1);
-      // vm.showAllErrors = function () {
-      // }
-
-
+      communication.send(vm.data);
 
       if (vm.form.$valid) {
-        console.log('vm.data', vm.data);
-        console.log("Form is valid.\nThank you\nEmail notification was sent. (not yet ready)\n(price calculation is not yet ready)\n(stripe connection is not yet ready)");
+        // console.log('vm.data', vm.data);
+        // console.log("Form is valid.\nThank you\nEmail notification was sent. (not yet ready)\n(price calculation is not yet ready)\n(stripe connection is not yet ready)");
       }
       else {
         console.warn('Form is not valid. Correct fields marked as red');
