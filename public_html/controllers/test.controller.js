@@ -88,7 +88,7 @@
       console.log('fill_debug');
       vm.data.sailingModuleToComplete_index = vm.sailing_module[1];
       vm.data.age_index = vm.possible_ages[3];
-      vm.data.courseDetails = 'Course B: June 20th – July 1st';
+      vm.data.courseDetails = 'Course_B';
       vm.data.possible_amount_of_kids_selected = vm.possible_amount_of_kids[1];
       vm.data.child[0].name = 'Mark Szyszko';
       vm.data.child[0].dateOfBirth = '20/09/2010';

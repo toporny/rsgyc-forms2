@@ -1,6 +1,6 @@
 (function() {
   angular.module('rsgycApp')
-  .service('communication', communication);
+  .service("communication", communication);
 
 
  // https://www.airpair.com/javascript/integrating-stripe-into-angular-app
@@ -24,9 +24,13 @@
       .success(function(data, status, headers, config) {
         console.log('what comes? = ',data);
       })
-      .error(function(data, status, headers, config) {
-        console.warn( "failure message: " + JSON.stringify({data: data}));
+      .then(function(response) {
+              // success
+      }, 
+      function(response) { // optional
+              // failed
       });
+
     }
 
 
@@ -36,4 +40,6 @@
 
   };
 })();
+
+
 
