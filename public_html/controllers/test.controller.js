@@ -25,6 +25,12 @@
 
   function TestController ($scope, $rootScope, communication, calculatePrice, valdr, prepareSelectData) {
 
+
+    window.Stripe.setPublishableKey('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+
+
+// cdn http://urish.github.io/ng-stripe-tutorial/step3/step3.html
+
     vm = this;
     vm.submit = submit;
     vm.fill_debug = fill_debug;
@@ -114,15 +120,12 @@
     function submit() {
       vm.formSubm = true;
 
-      communication.send(1);
       // vm.showAllErrors = function () {
       // }
 
-
-
       if (vm.form.$valid) {
+        communication.send(vm.data);
         console.log('vm.data', vm.data);
-        console.log("Form is valid.\nThank you\nEmail notification was sent. (not yet ready)\n(price calculation is not yet ready)\n(stripe connection is not yet ready)");
       }
       else {
         console.warn('Form is not valid. Correct fields marked as red');

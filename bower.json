@@ -1,11 +1,11 @@
 {
-	"name": "rsgyc-forms form with parlsy-validation and stripe",
-	"dependencies": {
-		"stripe": "https://github.com/stripe/stripe-php.git",
-		"angular": "1.5.*",
-		"angular-translate": "2.11.*",
-		"bootstrap": "3.1.*",
-		"valdr": "1.1.5",
-		"angular-bootstrap": "0.14.3"
-	}
+  "name": "rsgyc-forms form with parlsy-validation and stripe",
+  "dependencies": {
+    "angular": "1.5.*",
+    "angular-translate": "2.11.*",
+    "bootstrap": "3.1.*",
+    "valdr": "1.1.5",
+    "angular-bootstrap": "0.14.3",
+    "angular-payments": "*"
+  }
 }

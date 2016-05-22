@@ -2,11 +2,16 @@
   angular.module('rsgycApp')
   .service('communication', communication);
 
-  communication.$inject = [ '$http' ];
 
-  function communication ($http) {
+ // https://www.airpair.com/javascript/integrating-stripe-into-angular-app
+
+  communication.$inject = [ '$http'  ];
+
+  function communication ($http   ) {
 
     function send(data) {
+
+//      angularPayments
       
       var dataObj = {
           one : 'one',
@@ -17,7 +22,7 @@
       var res = $http
       .post('https://alltic.home.pl/rsgyc2.php', dataObj)
       .success(function(data, status, headers, config) {
-        console.log('data',data);
+        console.log('what comes? = ',data);
       })
       .error(function(data, status, headers, config) {
         console.warn( "failure message: " + JSON.stringify({data: data}));

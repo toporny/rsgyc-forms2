@@ -1,4 +1,14 @@
-angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
+(function() {
+angular.module('rsgycApp', [
+    'valdr',
+    'pascalprecht.translate',
+     // 'stripe',
+    'angularPayments'
+  ])
+})();
+
+(function() {
+angular.module('rsgycApp')
   .config(valdrProviderAddConstraints)
   .config(valdrProviderAddCheckBoxValidator)
   .config(valdrProviderAddSelectListValidator)
@@ -169,6 +179,7 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
       }
     });
 
+    $translateProvider.useSanitizeValueStrategy();
     $translateProvider.preferredLanguage('en');
 
     $translateProvider.translations('en', {
@@ -206,6 +217,8 @@ angular.module('rsgycApp', ['valdr', 'pascalprecht.translate'])
           
   };
 
+
+})();
 
 (function() {
   angular.module('rsgycApp')

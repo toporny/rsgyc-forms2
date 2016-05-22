@@ -62,6 +62,7 @@
                       <input type="text" \
                         class="form-control" \
                         name="membershipNo{{item}}" \
+                        ng-change="testController.recalculatePrice()" \
                         placeholder="leave blank if you don\'t have" \
                         ng-model="testController.data.child[item].membershipNo"> \
                     </div> \
