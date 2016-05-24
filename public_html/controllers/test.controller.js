@@ -21,12 +21,12 @@
   angular.module('rsgycApp')
   .controller('TestController', TestController);
 
-  TestController.$inject = ['$scope', '$rootScope', 'communication', 'calculatePrice',  'valdr', 'prepareSelectData'];
+  TestController.$inject = ['$scope', '$rootScope', '$location' ,'communication', 'calculatePrice',  'valdr', 'prepareSelectData'];
 
-  function TestController ($scope, $rootScope, communication, calculatePrice, valdr, prepareSelectData) {
+  function TestController ($scope, $rootScope, $location, communication, calculatePrice, valdr, prepareSelectData) {
 
 
-    window.Stripe.setPublishableKey('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+//    window.Stripe.setPublishableKey('pk_test_a7m5Q91it7KYngnGnfw2smDY');
 
 
 // cdn http://urish.github.io/ng-stripe-tutorial/step3/step3.html
@@ -44,6 +44,7 @@
     vm.possibleMonths = prepareSelectData.getMonths();
     vm.possibleYear = prepareSelectData.getCreditCardExpYears();
     vm.possible_amount_of_kids = prepareSelectData.getPossibleAmountOfKids();
+    vm.debug_mode = $location.search().debug;
     //$locationProvider.html5Mode(true);
 
 
@@ -75,6 +76,9 @@
      console.log('testController data',data);
       vm.data.price = calculatePrice.getPrice(data);
     });
+
+    console.log('$location.search()', $location.search().debug); // http://localhost:3000/#?debug=true
+
 
 
 
@@ -110,7 +114,7 @@
       vm.data.acceptTerms = true;
       vm.data.understandParkingPermit = true;
       vm.data.cardholdername = 'Brian Zuckenberg';
-      vm.data.cardnumber = '1234567890123456';
+      vm.data.number = '1234567890123456';
       vm.data.year_index = vm.possibleYear[3];
       vm.data.months_index = vm.possibleMonths[3];
       vm.data.cvv_index = '123';

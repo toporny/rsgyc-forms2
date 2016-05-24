@@ -35,7 +35,7 @@ grunt.initConfig({
 			{expand: false, src: ['bower_components/valdr/valdr-message.min.js'], dest: 'public_html/js/valdr-message.min.js', filter: 'isFile'},
 			{expand: false, src: ['bower_components/bootstrap/dist/css/bootstrap.css'], dest: 'public_html/css/bootstrap.css', filter: 'isFile'},
 			{expand: false, src: ['bower_components/valdr/valdr.min.js'], dest: 'public_html/js/valdr.min.js', filter: 'isFile'},
-			{expand: false, src: ['bower_components/angular/angular.min.js'], dest: 'public_html/js/angular.min.js', filter: 'isFile'},
+			// {expand: false, src: ['bower_components/angular/angular.min.js'], dest: 'public_html/js/angular.min.js', filter: 'isFile'},
 			{expand: false, src: ['bower_components/angular-payments/lib/angular-payments.min.js'], dest: 'public_html/js/angular-payments.min.js', filter: 'isFile'},
 			{expand: false, src: ['public_html/index.html'], dest: 'build/index.html', filter: 'isFile'},
 			{expand: true, cwd: 'public_html/js/', src: ['*.min.js'], dest: 'build/js'},

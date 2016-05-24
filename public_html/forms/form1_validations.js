@@ -1,10 +1,8 @@
+
 (function() {
-angular.module('rsgycApp', [
-    'valdr',
-    'pascalprecht.translate',
-     // 'stripe',
-    'angularPayments'
-  ])
+  angular.module('rsgycApp').config(function (stripeProvider) {
+    stripeProvider.setPublishableKey('pk_test_a7m5Q91it7KYngnGnfw2smDY');
+  });
 })();
 
 (function() {
